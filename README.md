@@ -33,5 +33,7 @@ malware features
 
 # pictures
 ![Screenshot 2024-06-03 232449](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/97864c80-a368-4855-b93f-13b15b58b065)
-![Screenshot 2024-06-03 232529](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/de08a1e4-5d0d-411c-b042-2fadab67f5a8)
+![Screenshot 2024-06-03 232529](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/de08a1e4-5d0d-411c-b042-2fadab67f5a8)  
+if discord is being used  
+![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
 
