@@ -1,6 +1,6 @@
 # crypto clipper builder
-
 ## A GUI based builder for making custom crypto stealing malware supporting btc, eth, ltc, xmr
+## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
 
 gui features
 - written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip), [CTkMessagebox](https://github.com/Akascape/CTkMessagebox) and [hPyT](https://github.com/Zingzy/hPyT)
