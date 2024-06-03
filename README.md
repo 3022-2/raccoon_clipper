@@ -11,8 +11,11 @@ gui features
 
 malware features
 - supports Bitcoin, Ethereum, Litecoin and monero at the same time
-- three different types of the same malware but using different methods. subprocess, ctypes and pyperclip
+- three different types of the same malware but using different methods. subprocess, ctypes and pyperclip  
+    - subprocess uses powershell commands to read and set clipboard - uses python standard libary so no need for the target to install anything
+    - ctypes uses ctypes to read clipboard and powerhsell to set clipboard - uses python standard libary so no need for the target to install anything
+    - pyperclip uses the pyperclip module to read and set clipboard - requires the target the run the command pip install pyperclip
 - duplicates and adds itself to startup apps for persistence
 - has single use method
-- allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed)
+- allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
