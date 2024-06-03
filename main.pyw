@@ -90,12 +90,12 @@ class toplevel:
         agree_var = customtkinter.StringVar(value="off")
 
         i_agree = customtkinter.CTkCheckBox(master=top_level, text="I agree", onvalue="on", offvalue="off", variable=agree_var, command=lambda: toplevel.agree())
-        i_agree.pack(anchor="w", padx=(237, 0), pady=(0, 10))
+        i_agree.pack(anchor="w", padx=(237, 0), pady=(0, 5))
         dont_show_again_checkbox = customtkinter.CTkCheckBox(master=top_level, text="dont show this again", onvalue="on", offvalue="off")
         dont_show_again_checkbox.pack(anchor="w", padx=(237, 0))
 
         close_btn = customtkinter.CTkButton(master=top_level, text="close window", command=lambda: toplevel.close(), state="disabled", width=500)
-        close_btn.pack(pady=10)
+        close_btn.pack(pady=5)
 
         exit = customtkinter.CTkButton(master=top_level, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), width=500, command=lambda: sys.exit())
         exit.pack()
