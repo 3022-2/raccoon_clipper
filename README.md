@@ -19,3 +19,4 @@ malware features
 - has single use method
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
+- malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
