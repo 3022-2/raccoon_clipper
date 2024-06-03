@@ -27,13 +27,13 @@ customtkinter.set_appearance_mode("dark")
 
 cwd = os.getcwd()
 
-vtlinksunobf = ["https://www.virustotal.com/gui/file/83d2a5b215563fb2aee128f8a2d12a82d3823ad852bdfd881186a83468e16331?nocache=1",
-                "https://www.virustotal.com/gui/file/e5c06c2948c54fdd7ab48b49a82dc6730cf09d1354651faa02f9ddff157a6960?nocache=1",
-                "https://www.virustotal.com/gui/file/43da94519ff3f8fb56e9da961876bfc73af6bf2c43b840bdcb21e877d67e82cb?nocache=1"]
+vtlinksunobf = ["https://www.virustotal.com/gui/file/74344dc13b085b2d1054dad4dfdab268e20894247643466aa88e41994486f0ba?nocache=1",
+                "https://www.virustotal.com/gui/file/0cea22f6403ddad2f2cc16648460ae6fdece193ba07e0bc486f900b32f81bc52?nocache=1",
+                "https://www.virustotal.com/gui/file/3d4b3a39d1c648373820bcdc45549932870b00bac9897e877522c3e4cd19c86d?nocache=1"]
 
-vtlinksobf = ["https://www.virustotal.com/gui/file/acd7cc709766731e95d145462f51044b65e56281555eb67c4182dacad1b47893?nocache=1",
-              "https://www.virustotal.com/gui/file/966b11d0a0df2ccc965716aa31c9f3e8fd78f2146017ad04d77617474e7a8662?nocache=1",
-              "https://www.virustotal.com/gui/file/f156b552bbb47881c4b92574452cfa7c7b321bd1c3f8269b7c3bbe2748fc6135?nocache=1"]
+vtlinksobf = ["https://www.virustotal.com/gui/file/fd6d1ac9a7b111840bf1b9ede641506e93ce16b355057c82f7546092c36d47d2?nocache=1",
+              "https://www.virustotal.com/gui/file/a4edfa41ddfb01fdc8404574a364829c7911c9bb13787d1bff32c9c7c8b6f359?nocache=1",
+              "https://www.virustotal.com/gui/file/df17497d809aa0df6911ad1faefeb563522ecb12ea3dadc05b5fdc6800e6e479?nocache=1"]
 
 class virustotal:
     def open_unobf():
