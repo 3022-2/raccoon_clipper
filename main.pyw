@@ -470,7 +470,8 @@ class buildgui:
         root.geometry("600x400")
         root.resizable(height=False, width=False)
         root.iconbitmap("DefultIcons/racoon.ico")
-
+        root.attributes('-topmost', True)
+        
         hPyT.rainbow_border.start(window=root, interval=5)
         hPyT.minimize_button.disable(root)
         hPyT.maximize_button.disable(root)
