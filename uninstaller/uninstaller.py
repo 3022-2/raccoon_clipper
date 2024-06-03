@@ -1,6 +1,7 @@
 import shutil
 import winreg
 import time
+import sys
 import os
 
 def remove_files():
@@ -26,7 +27,13 @@ def main():
     remove_files()
     remove_registry_entry()
     print("Uninstallation completed.")
-    time.sleep(2)
 
 if __name__ == "__main__":
-    main()
+    choice = input("do you want to uninstall the malware from pc? y/n: ").strip().lower()
+    if choice == "y":
+        main()
+    elif choice == "n":
+        sys.exit()
+    else:
+        print(f"{choice} isnt an  option - quitting")
+        sys.exit()
