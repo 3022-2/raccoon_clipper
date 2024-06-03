@@ -1,0 +1,40 @@
+What does this program do?
+This program is a GUI based malware builder. It allows a user to make a customised piece of malware.
+
+What systems can this malware and builder work on?
+The malware and builder will only run on windows computers.
+
+What kind of malware?
+The kind of malware is known as crypto clipper malware. The builder allows you to choose a method (ctypes, subprocess, pyperclip).
+
+How does the malware work?
+Every 0.25 seconds the malware checks to see if the user has copied any text to the clipboard. If the user has then the text in the clipboard is checked to see if its a bitcoin, ethereum, litecoin or monero address. If it is any of these the clipboard is replaced with the hackers crypto address in turn stealing crypto
+
+Is the malware detected by antivirus?
+    All were scanned with virustotal
+
+    subprocess method - obfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
+    pyperclip method - obfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+    ctypes method - obfuscated (detected by 12/73 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+
+    subprocess method - unobfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
+    pyperclip method - unobfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+    ctypes method - unobfuscated (detected by 12/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+
+Whats the difference between ctypes, subprocess, pyperclip?
+ctypes - directly interacts with the clipboard to retrieve text and uses powershell to set the new clipboard text - no installs needed meaning anyone with python installed on a windows computer can run it.
+subprocess - uses powershell to retrieve clipboard text and uses powershell to set the new clipboard text - no installs needed meaning anyone with python installed on a windows computer can run it.
+pyperclip - uses the pyperclip package to retrieve and set clipboard text - pyperclip install needed meaning this will only work on windows computers with pyperclip installed through pip install pyperclip.
+
+Features:
+    -Supports bitcoin, ethereum, litecoin, monero
+    -has single use method meaning after one log the code wont run again
+    -duplicates itself to run at startup with a different name
+    -can a add custom icon as .ico file
+    -has an option to obfuscate the .exe but this isnt needed
+    -runs as .pyw file (python windowless) so it runs as background task
+    -if discord webhook added it sends a ping to discord webhook when crypto address detected
+    -creates a readble .pyw as well as the .exe so you can code inspect
+
+My icons arent showing on the .exe, why is this?
+Honestly im not sure why this happens - for some reason the icons bind to the exe but dont visually update. The fix for this is just to restart Windows Explorer in task manager and the icons update

