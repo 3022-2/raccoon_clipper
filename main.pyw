@@ -49,8 +49,11 @@ class toplevel:
         top_level.resizable(height=False, width=False)
         top_level.attributes('-topmost', True)
         hPyT.title_bar.hide(top_level)
-        
+        hPyT.minimize_button.disable(root)
+        hPyT.maximize_button.disable(root)
+        hPyT.opacity.set(root, 0.8)
         hPyT.window_frame.center_relative(root, top_level)
+        
         root.bind("<Configure>", lambda event: hPyT.window_frame.center_relative(root, top_level))
 
         text_frame = customtkinter.CTkScrollableFrame(master=top_level)
@@ -471,11 +474,8 @@ class buildgui:
         root.resizable(height=False, width=False)
         root.iconbitmap("DefultIcons/racoon.ico")
         root.attributes('-topmost', True)
-        
+
         hPyT.rainbow_border.start(window=root, interval=5)
-        hPyT.minimize_button.disable(root)
-        hPyT.maximize_button.disable(root)
-        hPyT.opacity.set(root, 0.8)
 
         tabview = customtkinter.CTkTabview(master=root)
         tabview.pack(fill="both", expand=True, padx=5, pady=5)
