@@ -30,3 +30,8 @@ malware features
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
+
+# pictures
+![Screenshot 2024-06-03 232449](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/97864c80-a368-4855-b93f-13b15b58b065)
+![Screenshot 2024-06-03 232529](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/de08a1e4-5d0d-411c-b042-2fadab67f5a8)
+
