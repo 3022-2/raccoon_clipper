@@ -547,7 +547,7 @@ class buildgui:
         global option_frame, main_frame, root
 
         root = customtkinter.CTk()
-        root.title("crypto clipper builder")
+        root.title("raccoon clipper - crypto malware builder")
         root.minsize(width=800, height=400)
         root.geometry("600x400")
         root.resizable(height=False, width=False)
