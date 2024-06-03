@@ -15,3 +15,4 @@ malware features
 - duplicates and adds itself to startup apps for persistence
 - has single use method
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed)
+- option to ping @everyone
