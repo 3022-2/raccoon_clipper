@@ -4,7 +4,7 @@
 
 gui features
 - written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip), [CTkMessagebox](https://github.com/Akascape/CTkMessagebox) and [hPyT](https://github.com/Zingzy/hPyT)
-- uses pyarmor for obfuscating malware and pyinstaller for compiling to .exe
+- uses [pyarmor](https://github.com/dashingsoft/pyarmor) for obfuscating malware and [pyinstaller](https://github.com/pyinstaller/pyinstaller) for compiling to .exe
 - allows setting custom icons to the malware .exe
 - allows setting custom name for the malware .exe
 - has documentation built into the GUI under the documentation tab
