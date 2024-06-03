@@ -79,7 +79,7 @@ class toplevel:
         text_frame = customtkinter.CTkScrollableFrame(master=top_level)
         text_frame.pack(fill="both", padx=10, pady=(18, 10))
 
-        customtkinter.CTkLabel(master=text_frame, text="coded by https://github.com/3022-2", font=("", 15, "bold")).pack()
+        customtkinter.CTkLabel(master=text_frame, text="written by https://github.com/3022-2", font=("", 15, "bold")).pack()
         customtkinter.CTkLabel(master=text_frame, text="").pack()
         customtkinter.CTkLabel(master=text_frame, text="DISCLAIMER: This program is intended for educational and malware analysis purposes only. Any use of this code for illegal or unethical activities is strictly prohibited. The author of this code shall not be held responsible for any misuse or damage resulting from its use. Users are solely responsible for ensuring compliance with applicable laws and ethical standards. By pressing I agree and continuing to use this program you agree that the author of this code shall not be held responsible for any misuse or damage resulting from its use.", wraplength=500, font=("", 15, "bold")).pack()
         customtkinter.CTkLabel(master=text_frame, text="").pack()
