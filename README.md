@@ -1,4 +1,4 @@
-# crypto clipper builder
+# crypto clipper builder written in python
 ## A GUI based builder for making custom crypto stealing malware supporting btc, eth, ltc, xmr
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
 
