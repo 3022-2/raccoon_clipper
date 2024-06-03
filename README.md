@@ -1,5 +1,5 @@
 # crypto clipper builder written in python
-## A GUI based builder for making custom crypto stealing malware supporting btc, eth, ltc, xmr
+## A GUI based builder for making custom crypto stealing malware that bypasses most antiviruses including windows defender
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
 
 gui features
