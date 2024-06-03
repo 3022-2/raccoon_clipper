@@ -27,6 +27,7 @@ def main():
     remove_files()
     remove_registry_entry()
     print("Uninstallation completed.")
+    time.sleep(0.5)
 
 if __name__ == "__main__":
     choice = input("do you want to uninstall the malware from pc? y/n: ").strip().lower()
