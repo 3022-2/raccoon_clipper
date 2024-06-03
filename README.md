@@ -10,6 +10,16 @@ gui features
 - has documentation built into the GUI under the documentation tab
 
 malware features
+- undetected by majority of anti virus softwares including  
+    - Windows Defender
+    - Avast
+    - Google
+    - McAfee
+    - AVG
+    - Malwarebytes (except for subprocess method)
+    - [virus total - ctypes obfuscated](https://www.virustotal.com/gui/file/fd6d1ac9a7b111840bf1b9ede641506e93ce16b355057c82f7546092c36d47d2?nocache=1) 12/74 detections - [virus total - ctypes unobfuscated](https://www.virustotal.com/gui/file/74344dc13b085b2d1054dad4dfdab268e20894247643466aa88e41994486f0ba?nocache=1) 12/73 detections
+    - [virus total - pyperclip obfuscated](https://www.virustotal.com/gui/file/df17497d809aa0df6911ad1faefeb563522ecb12ea3dadc05b5fdc6800e6e479?nocache=1) 6/74 detections - [virus total - pyperclip unobfuscated](https://www.virustotal.com/gui/file/0cea22f6403ddad2f2cc16648460ae6fdece193ba07e0bc486f900b32f81bc52?nocache=1) 7/74 detections
+    - [virus total - subprocess obfuscated](https://www.virustotal.com/gui/file/a4edfa41ddfb01fdc8404574a364829c7911c9bb13787d1bff32c9c7c8b6f359?nocache=1) 13/73 detections - [virus total - subprocess unobfuscated](https://www.virustotal.com/gui/file/3d4b3a39d1c648373820bcdc45549932870b00bac9897e877522c3e4cd19c86d?nocache=1) 15/74 detections
 - supports Bitcoin, Ethereum, Litecoin and monero at the same time
 - three different types of the same malware but using different methods. subprocess, ctypes and pyperclip  
     - subprocess uses powershell commands to read and set clipboard - uses python standard libary so no need for the target to install anything
