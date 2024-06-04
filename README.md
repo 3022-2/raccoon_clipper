@@ -33,6 +33,7 @@ malware features
 features i will likely add in the future
 - file extention spoofer
 - file size pumper
+- code within "" and executed with exec()
 # pictures
 ![Screenshot 2024-06-03 232449](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/97864c80-a368-4855-b93f-13b15b58b065)
 ![Screenshot 2024-06-03 232529](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/de08a1e4-5d0d-411c-b042-2fadab67f5a8)  
