@@ -9,7 +9,7 @@
 
 ## A GUI based builder for making custom crypto stealing malware that bypasses most antiviruses including windows defender
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
-
+# features
 gui features
 - written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip), [CTkMessagebox](https://github.com/Akascape/CTkMessagebox) and [hPyT](https://github.com/Zingzy/hPyT)
 - uses [pyarmor](https://github.com/dashingsoft/pyarmor) for obfuscating malware and [pyinstaller](https://github.com/pyinstaller/pyinstaller) for compiling to .exe
@@ -53,3 +53,17 @@ pip install -r requirements.txt
 
 python main.pyw or double click main.pyw
 ```
+# how to uninstall malware
+1. kill the process in task manager and delete .exe
+2. run uninstaller.py in uninstaller folder - if there is an error removing registry entry (cant find path) this is fine it means it isnt in startup anyway
+
+you can also manual uninstall
+1. kill the process in task manager and delete .exe
+2. goto %appdata%
+3. delete storage0 folder and CLPPTH folder
+4. goto Software\Microsoft\Windows\CurrentVersion\Run in registry editor
+5. delete entry named CLPPTH
+
+# legal
+DISCLAIMER: The code provided in this repository is intended for educational and malware analysis purposes only. Any use of this code for illegal or unethical activities is strictly prohibited. The author of this code shall not be held responsible for any misuse or damage resulting from its use. Users are solely responsible for ensuring compliance with applicable laws and ethical standards.
+WARNING: THIS IS MAKES MALWARE DESIGNED FOR STEALING CRYPTOCURRENCY. USE UNINSTALL GUIDE IF UNINSTALL CODE FAILS. (not found error doesn't necessarily mean didnt uninstall)
