@@ -493,9 +493,9 @@ class buildgui:
         
         clipper_type = customtkinter.CTkComboBox(master=option_frame, state="readonly", 
                                                  values=["set clipper type", 
-                                                         "subprocess (0 external modules - stealth)", 
-                                                         "ctypes (0 external modules - stealth)", 
-                                                         "pyperclip (1 external module - no stealth)"])
+                                                         "subprocess (0 external modules - best)", 
+                                                         "ctypes (0 external modules - second best can be buggy)", 
+                                                         "pyperclip (1 external module - worst)"])
         clipper_type.set("set clipper type")
         clipper_type.pack(fill="x", padx=10, pady=5)
         single_use_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="single use", onvalue="on", offvalue="off")
