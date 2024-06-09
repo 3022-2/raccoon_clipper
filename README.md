@@ -5,8 +5,6 @@
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
 ![GitHub issues](https://img.shields.io/github/issues/3022-2/raccoon_clipper)
-![GitHub release](https://img.shields.io/github/v/release/3022-2/raccoon_clipper)
-
 
 ## A GUI based builder for making custom crypto stealing malware that bypasses most antiviruses including windows defender
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
