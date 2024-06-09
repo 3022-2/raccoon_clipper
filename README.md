@@ -35,7 +35,6 @@ features i will likely add in the future
 - file extention spoofer
 - file size pumper
 - code within "" and executed with exec()
-- more crypto coins
 - another obfuscation method and compile method to choose from
 # pictures
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
