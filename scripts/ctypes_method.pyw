@@ -258,4 +258,8 @@ def check():
         pass
     
 if __name__ == "__main__":
-    check()
+    try:
+        if os.name == "nt":
+            check()
+    except Exception:
+        pass
