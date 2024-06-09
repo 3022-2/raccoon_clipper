@@ -1,5 +1,6 @@
 # raccoon crypto clipper written in python
-# INFO: REGEX FOR EVERYTHING OTHER THAN BTC,ETH,LTC,XMR ARE FUCKED CURRENTLY SO DONT SET THESE
+
+## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron**
 
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
