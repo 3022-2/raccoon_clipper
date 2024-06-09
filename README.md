@@ -39,7 +39,7 @@ features i will likely add in the future
 - another obfuscation method and compile method to choose from
 # pictures
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
-![Screenshot 2024-06-03 232529](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/de08a1e4-5d0d-411c-b042-2fadab67f5a8)  
+![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/40cfd311-bb40-4bf4-b4ae-96999f3a7c83)
 if discord is being used  
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
 # installation
