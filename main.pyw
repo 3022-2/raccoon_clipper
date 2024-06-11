@@ -237,7 +237,7 @@ class build:
                 check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
                 CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
             else:
-                new_file_name = out_name.get().strip()
+                new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
                     new_file.write(script_content)
         
@@ -319,7 +319,7 @@ class build:
                 check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
                 CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
             else:
-                new_file_name = out_name.get().strip()
+                new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
                     new_file.write(script_content)       
         
@@ -401,7 +401,7 @@ class build:
                 check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
                 CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
             else:
-                new_file_name = out_name.get().strip()
+                new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
                     new_file.write(script_content)       
         
@@ -584,7 +584,7 @@ class buildgui:
 
         webhook_url = customtkinter.CTkEntry(master=main_frame, placeholder_text="discord webhook (leave empty if none): ")
         webhook_url.pack(fill="x", padx=5, pady=5)
-        out_name = customtkinter.CTkEntry(master=main_frame, placeholder_text="output file name WITH .pyw extention (leave empty if for defult name): ")
+        out_name = customtkinter.CTkEntry(master=main_frame, placeholder_text="output file name WITH .pyw extention (leave empty if for defult name - spaces will be removed): ")
         out_name.pack(fill="x", padx=5, pady=0)
 
         check_valid_btn = customtkinter.CTkButton(master=main_frame, text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, 

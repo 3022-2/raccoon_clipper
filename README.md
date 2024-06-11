@@ -32,7 +32,7 @@ malware features
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
 
 features i will want to add in the future
-- self check to avoid multiple runs
+- self check to avoid multiple instances
 - file extention spoofer
 - file size pumper
 - code within "" and executed with exec()

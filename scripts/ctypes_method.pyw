@@ -398,6 +398,10 @@ def check():
 if __name__ == "__main__":
     try:
         if os.name == "nt":
-            check()
+            proc = str(subprocess.check_output('tasklist').decode())
+            if "clppth.exe" or os.path.basename(__file__).replace(".py", ".exe") not in proc:  
+                check()
+            else:
+                sys.exit()
     except Exception:
         pass
