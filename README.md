@@ -31,7 +31,8 @@ malware features
 - option to ping @everyone
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
 
-features i will likely add in the future
+features i will want to add in the future
+- self check to avoid multiple runs
 - file extention spoofer
 - file size pumper
 - code within "" and executed with exec()
