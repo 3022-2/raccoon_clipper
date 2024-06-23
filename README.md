@@ -6,7 +6,7 @@
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
 ![GitHub issues](https://img.shields.io/github/issues/3022-2/raccoon_clipper)
 
-## A GUI based builder for making custom crypto stealing malware that bypasses most antiviruses including windows defender
+## A GUI based builder for making custom crypto stealing malware
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
 # video guide - click takes to youtube
 [![video link](https://img.youtube.com/vi/Ha9hqmdEzCk/0.jpg)](https://www.youtube.com/watch?v=Ha9hqmdEzCk)
@@ -19,7 +19,6 @@ gui features
 - has documentation built into the GUI under the documentation tab
 
 malware features
-- undetected by majority of anti virus softwares including windows defender
 - supports Bitcoin, Ethereum, Litecoin, Monero, Solana, Dogecoin, Ripple, Tron at the same time
 - three different types of the same malware but using different methods. subprocess, ctypes and pyperclip  
     - subprocess uses powershell commands to read and set clipboard - uses python standard libary so no need for the target to install anything
