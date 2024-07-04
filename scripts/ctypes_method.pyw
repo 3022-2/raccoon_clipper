@@ -398,11 +398,6 @@ def check():
 if __name__ == "__main__":
     try:
         if os.name == "nt":
-            si = subprocess.STARTUPINFO()
-            si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            si.wShowWindow = subprocess.SW_HIDE
-            proc = subprocess.check_output("tasklist", startupinfo=si)
-            if "clppth.exe" not in proc.decode() and os.path.basename(__file__.replace(".pyw", ".exe")) not in proc.decode():
-                check()
+            check()
     except Exception:
         pass
