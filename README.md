@@ -40,6 +40,7 @@ features i will want to add in the future
 - anti virus disable/self exclude (no idea if self exclude is even possible lol)
 - anti virtual machine 
 - process injection???? - maybe on this one, no idea how it works
+- exclude - (exclude specific computer names and so on)
 # pictures
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/040d54e4-39d2-455f-8603-a46b879dbc4a)
