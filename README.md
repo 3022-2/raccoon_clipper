@@ -24,18 +24,22 @@ malware features
     - subprocess uses powershell commands to read and set clipboard - uses python standard libary so no need for the target to install anything
     - ctypes uses ctypes to read clipboard and powerhsell to set clipboard - uses python standard libary so no need for the target to install anything
     - pyperclip uses the pyperclip module to read and set clipboard - requires the target the run the command pip install pyperclip
-- duplicates and adds itself to startup apps for persistence
+- duplicates and adds itself to startup apps (registry) for persistence under a different name
 - has single use method
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
 
 features i will want to add in the future
-- self check to avoid multiple instances
+- self check to avoid multiple instances 
 - file extention spoofer
 - file size pumper
 - code within "" and executed with exec()
 - another obfuscation method and compile method to choose from
+- duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
+- anti virus disable/self exclude (no idea if self exclude is even possible lol)
+- anti virtual machine 
+- process injection???? - maybe on this one, no idea how it works
 # pictures
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/040d54e4-39d2-455f-8603-a46b879dbc4a)
