@@ -18,6 +18,7 @@ soladdr = "SET SOL ADDRESS HERE"
 dogeaddr = "SET DOGE ADDRESS HERE"
 xrpaddr = "SET XRP ADDRESS HERE"
 trxaddr = "SET TRX ADDRESS HERE"
+
 single_use = False
 
 ping = False
