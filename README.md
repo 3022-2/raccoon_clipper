@@ -50,7 +50,7 @@ features i will want to add in the future
 if discord is being used  
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
 # installation
-```console
+```bash
 git clone https://github.com/3022-2/raccoon_clipper.git
 
 cd raccoon_clipper
