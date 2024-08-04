@@ -1,6 +1,6 @@
 # raccoon crypto clipper written in python
 
-## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron**
+## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron, bitcoin cash**
 
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
@@ -19,19 +19,24 @@ gui features
 - has documentation built into the GUI under the documentation tab
 
 malware features
-- supports Bitcoin, Ethereum, Litecoin, Monero, Solana, Dogecoin, Ripple, Tron at the same time
-- three different types of the same malware but using different methods. subprocess, ctypes and pyperclip  
+- supports Bitcoin, bitcoin cash, Ethereum, Litecoin, Monero, Solana, Dogecoin, Ripple, Tron at the same time
+- six different types of the same malware but using different methods. subprocess, ctypes and pyperclip
+    - tkinter uses the tkinter libary - fully python standard libary so no pip installs (is fastest + best on old/shit hardware)    
     - subprocess uses powershell commands to read and set clipboard - uses python standard libary so no need for the target to install anything
     - ctypes uses ctypes to read clipboard and powerhsell to set clipboard - uses python standard libary so no need for the target to install anything
-    - pyperclip uses the pyperclip module to read and set clipboard - requires the target the run the command pip install pyperclip
+    - pyperclip uses the pyperclip module to read and set clipboard - requires the target the run the command ```pip install pyperclip```
+    - clipboard is literally a reskin of pyperclip - requires the target the run the command ```pip install clipboard```
+    - win32clipboard uses the libary pywin32 - requires the target the run the command ```pip install pywin32```
 - duplicates and adds itself to startup apps (registry) for persistence under a different name
 - has single use method
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
+- has a 3 restard incubate feature
+- has a ignore feature (to not run on computers with a given computer name)
 
 features i will want to add in the future
-- [ ] more supported crypto currencies 
+- [x] more supported crypto currencies 
 - [ ] self check to avoid multiple instances 
 - [ ] file extention spoofer
 - [ ] file size pumper
@@ -41,12 +46,13 @@ features i will want to add in the future
 - [ ] anti virus disable/self exclude (no idea if self exclude is even possible lol)
 - [ ] anti virtual machine 
 - [ ] process injection???? - maybe on this one, no idea how it works
-- [ ] exclude - (exclude specific computer names and so on)
-- [ ] incubate (only starts running after a specific amount of restarts)
+- [x] exclude - (exclude specific computer names and so on)
+- [x] incubate (only starts running after a specific amount of restarts)
 - [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
 # pictures
-![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
-![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/040d54e4-39d2-455f-8603-a46b879dbc4a)
+![image](https://github.com/user-attachments/assets/ce014b63-338f-4a15-8c57-ead855f050c6)
+![image](https://github.com/user-attachments/assets/e45c3400-8389-432d-aeba-d021c2bb15c1)
+
 
 if discord is being used  
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
