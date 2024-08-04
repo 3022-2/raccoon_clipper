@@ -126,6 +126,7 @@ class resetconfig:
         obfuscate_checkbox.deselect()
         single_use_checkbox.deselect()
         ping_discord_checkbox.deselect()
+        incubate_checkbox.deselect()
         clipper_type.set("set clipper type")
         buildclipperconfig.class_called = 0
 
