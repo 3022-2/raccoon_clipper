@@ -31,18 +31,19 @@ malware features
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
 
 features i will want to add in the future
-- self check to avoid multiple instances 
-- file extention spoofer
-- file size pumper
-- code within "" and executed with exec()
-- another obfuscation method and compile method to choose from
-- duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
-- anti virus disable/self exclude (no idea if self exclude is even possible lol)
-- anti virtual machine 
-- process injection???? - maybe on this one, no idea how it works
-- exclude - (exclude specific computer names and so on)
-- incubate (only starts running after a specific amount of restarts)
-- second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
+- [ ] more supported crypto currencies 
+- [ ] self check to avoid multiple instances 
+- [ ] file extention spoofer
+- [ ] file size pumper
+- [ ] code within "" and executed with exec()
+- [ ] another obfuscation method and compile method to choose from
+- [ ] duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
+- [ ] anti virus disable/self exclude (no idea if self exclude is even possible lol)
+- [ ] anti virtual machine 
+- [ ] process injection???? - maybe on this one, no idea how it works
+- [ ] exclude - (exclude specific computer names and so on)
+- [ ] incubate (only starts running after a specific amount of restarts)
+- [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
 # pictures
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/93a990cb-6a3f-4bc8-b2b9-1cf73618cb8b)
 ![Screenshot 2024-06-10 002933](https://github.com/3022-2/raccoon_clipper/assets/82278708/040d54e4-39d2-455f-8603-a46b879dbc4a)
