@@ -8,9 +8,8 @@
 
 ## A GUI based builder for making custom crypto stealing malware
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
-# video guide - click takes to youtube
-video out date - will make new one soon  
-[![video link](https://img.youtube.com/vi/Ha9hqmdEzCk/0.jpg)](https://www.youtube.com/watch?v=Ha9hqmdEzCk)
+# video guide - click takes to youtube  
+[![video link](https://img.youtube.com/vi/LCSdIR7-qqE/0.jpg)](https://youtu.be/LCSdIR7-qqE?si=NHwzbGYcxMrkz7wF)
 # features
 gui features
 - written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip) and [hPyT](https://github.com/Zingzy/hPyT)
