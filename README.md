@@ -9,6 +9,7 @@
 ## A GUI based builder for making custom crypto stealing malware
 ## GUI AND MALWARE DESIGNED FOR WINDOWS COMPUTERS - ANY OTHER SYSTEM WONT RUN
 # video guide - click takes to youtube
+video out date - will make new one soon  
 [![video link](https://img.youtube.com/vi/Ha9hqmdEzCk/0.jpg)](https://www.youtube.com/watch?v=Ha9hqmdEzCk)
 # features
 gui features
@@ -54,9 +55,8 @@ features i will want to add in the future
 - [ ] add decoy programs
 - [x] new error method to replace ctkmessagebox
 # pictures
-![image](https://github.com/user-attachments/assets/ce014b63-338f-4a15-8c57-ead855f050c6)
-![image](https://github.com/user-attachments/assets/e45c3400-8389-432d-aeba-d021c2bb15c1)
-
+![image](https://github.com/user-attachments/assets/2d1db737-e76c-4123-a499-11caf27bb448)
+![image](https://github.com/user-attachments/assets/09867fd6-f778-4ac0-a3f8-5627fd335466)
 
 if discord is being used  
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
