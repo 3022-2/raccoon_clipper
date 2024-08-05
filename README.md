@@ -49,6 +49,9 @@ features i will want to add in the future
 - [x] exclude - (exclude specific computer names and so on)
 - [x] incubate (only starts running after a specific amount of restarts)
 - [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
+- [ ] improve reset
+- [ ] add fake error
+- [ ] add decoy programs
 # pictures
 ![image](https://github.com/user-attachments/assets/ce014b63-338f-4a15-8c57-ead855f050c6)
 ![image](https://github.com/user-attachments/assets/e45c3400-8389-432d-aeba-d021c2bb15c1)
