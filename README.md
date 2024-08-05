@@ -33,7 +33,7 @@ malware features
 - allows discord webhook (whenever a address is detected you get a discord notification which says the computer name and that the address has been changed), doesnt need any installs as uses http.client rather than requests to send POST requests to webhook 
 - option to ping @everyone
 - malware saved as .pyw and then compiled to .exe meaning that the malware runs in the background silently
-- has a 3 restard incubate feature
+- has a 4 restart incubate feature
 - has a ignore feature (to not run on computers with a given computer name)
 
 features i will want to add in the future
@@ -48,7 +48,7 @@ features i will want to add in the future
 - [ ] anti virtual machine 
 - [ ] process injection???? - maybe on this one, no idea how it works
 - [x] exclude - (exclude specific computer names and so on)
-- [x] incubate (only starts running after a specific amount of restarts)
+- [x] incubate (only starts running after 4 restarts)
 - [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
 - [ ] improve reset
 - [x] add fake error

