@@ -68,6 +68,8 @@ def is_crypto_addr(clipboard_text):
             return "XRP"
         elif re.match(trx_address_pattern, clipboard_text):
             return "TRX"
+        elif re.match(bch_address_pattern, clipboard_text):
+            return "BCH"
         else:
             return False
     except Exception:
