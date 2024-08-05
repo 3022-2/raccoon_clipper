@@ -52,6 +52,7 @@ features i will want to add in the future
 - [ ] improve reset
 - [ ] add fake error
 - [ ] add decoy programs
+- [ ] new error method to replace ctkmessagebox
 # pictures
 ![image](https://github.com/user-attachments/assets/ce014b63-338f-4a15-8c57-ead855f050c6)
 ![image](https://github.com/user-attachments/assets/e45c3400-8389-432d-aeba-d021c2bb15c1)
