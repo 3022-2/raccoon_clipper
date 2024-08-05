@@ -12,7 +12,7 @@
 [![video link](https://img.youtube.com/vi/Ha9hqmdEzCk/0.jpg)](https://www.youtube.com/watch?v=Ha9hqmdEzCk)
 # features
 gui features
-- written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip), [CTkMessagebox](https://github.com/Akascape/CTkMessagebox) and [hPyT](https://github.com/Zingzy/hPyT)
+- written with [customtkinter](https://github.com/TomSchimansky/CustomTkinter), [CTkToolTip](https://github.com/Akascape/CTkToolTip) and [hPyT](https://github.com/Zingzy/hPyT)
 - uses [pyarmor](https://github.com/dashingsoft/pyarmor) for obfuscating malware and [pyinstaller](https://github.com/pyinstaller/pyinstaller) for compiling to .exe
 - allows setting custom icons to the malware .exe
 - allows setting custom name for the malware .exe
@@ -50,9 +50,9 @@ features i will want to add in the future
 - [x] incubate (only starts running after a specific amount of restarts)
 - [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
 - [ ] improve reset
-- [ ] add fake error
+- [x] add fake error
 - [ ] add decoy programs
-- [ ] new error method to replace ctkmessagebox
+- [x] new error method to replace ctkmessagebox
 # pictures
 ![image](https://github.com/user-attachments/assets/ce014b63-338f-4a15-8c57-ead855f050c6)
 ![image](https://github.com/user-attachments/assets/e45c3400-8389-432d-aeba-d021c2bb15c1)

