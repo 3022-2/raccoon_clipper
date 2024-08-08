@@ -44,7 +44,7 @@ features i will want to add in the future
 - [x] base64 encodeding + exec 
 - [ ] another obfuscation method and compile method to choose from
 - [ ] duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
-- [x] anti virus disable/self exclude (no idea if self exclude is even possible lol)
+- [x] self exclude from av (requires run from admin)
 - [ ] anti virtual machine 
 - [ ] process injection???? - maybe on this one, no idea how it works
 - [x] exclude - (exclude specific computer names and so on)
