@@ -40,7 +40,7 @@ features i will want to add in the future
 - [ ] self check to avoid multiple instances 
 - [ ] file extention spoofer
 - [ ] file size pumper
-- [ ] code within "" and executed with exec()
+- [x] base64 encodeding + exec 
 - [ ] another obfuscation method and compile method to choose from
 - [ ] duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
 - [ ] anti virus disable/self exclude (no idea if self exclude is even possible lol)

