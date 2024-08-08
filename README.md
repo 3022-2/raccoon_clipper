@@ -37,6 +37,7 @@ malware features
 
 features i will want to add in the future
 - [x] more supported crypto currencies 
+- [x] get public ip and define method with webhook
 - [ ] self check to avoid multiple instances 
 - [ ] file extention spoofer
 - [ ] file size pumper

