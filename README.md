@@ -44,13 +44,13 @@ features i will want to add in the future
 - [x] base64 encodeding + exec 
 - [ ] another obfuscation method and compile method to choose from
 - [ ] duplicate file cleaner (when the persistent file is cteated remove its icon to make less obvious in startup apps)
-- [ ] anti virus disable/self exclude (no idea if self exclude is even possible lol)
+- [x] anti virus disable/self exclude (no idea if self exclude is even possible lol)
 - [ ] anti virtual machine 
 - [ ] process injection???? - maybe on this one, no idea how it works
 - [x] exclude - (exclude specific computer names and so on)
 - [x] incubate (only starts running after 4 restarts)
 - [ ] second file persistence (if the first persistent file is removed successfully the second one will run - will be stored separately from main persistence files)
-- [ ] improve reset
+- [x] improve reset
 - [x] add fake error
 - [ ] add decoy programs
 - [x] new error method to replace ctkmessagebox
