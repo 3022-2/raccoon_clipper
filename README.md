@@ -55,8 +55,9 @@ features i will want to add in the future
 - [ ] add decoy programs
 - [x] new error method to replace ctkmessagebox
 # pictures
-![image](https://github.com/user-attachments/assets/2d1db737-e76c-4123-a499-11caf27bb448)
-![image](https://github.com/user-attachments/assets/09867fd6-f778-4ac0-a3f8-5627fd335466)
+![image](https://github.com/user-attachments/assets/2113f236-8724-411a-846b-2436740d96df)  
+![image](https://github.com/user-attachments/assets/09867fd6-f778-4ac0-a3f8-5627fd335466)  
+![image](https://github.com/user-attachments/assets/8596316b-bc6f-4cd7-94bb-c38cc8034053)
 
 if discord is being used  
 ![Screenshot 2024-06-03 233516](https://github.com/3022-2/crypto_clipper_builder/assets/82278708/b0111946-3bed-425c-a871-ebf63b9d33f1)
