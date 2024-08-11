@@ -79,7 +79,7 @@ you can also manual uninstall
 1. kill the process in task manager and delete .exe
 2. goto %appdata%
 3. delete storage0 folder and CLPPTH folder
-4. goto Software\Microsoft\Windows\CurrentVersion\Run in registry editor
+4. goto Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 5. delete entry named CLPPTH
 
 # legal
