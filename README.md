@@ -88,4 +88,4 @@ DISCLAIMER: The code provided in this repository is intended for educational and
 WARNING: THIS IS MAKES MALWARE DESIGNED FOR STEALING CRYPTOCURRENCY. USE UNINSTALL GUIDE IF UNINSTALL CODE FAILS. (not found error doesn't necessarily mean didnt uninstall)
 
 # contact
-discord: hyperborean__  
+discord: hyperborean__ (NOT ANYMORE, LOST ACCESS TO THE ACCOUNT)
