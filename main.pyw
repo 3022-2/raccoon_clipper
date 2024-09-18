@@ -455,6 +455,11 @@ class buildgui:
                         r = requests.get(webhook_url1)
                         if r.status_code == 200:
                             webhook_url.configure(border_color="green")
+                            try:
+                                r = requests.post(webhook_url1, json={"content": "```WEBHOOK CONNECTED```"})
+                            except Exception as e:
+                                messagebox.showerror(title="error", message=e)
+
                         else:
                             webhook_url.configure(border_color="red")
                     
