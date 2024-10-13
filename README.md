@@ -1,5 +1,5 @@
 
-# AS OF 13th OCTOBER 2024 IT IS BROKEN, I WILL NOT BE FIXINH IT
+# AS OF 13th OCTOBER 2024 IT IS BROKEN, I WILL NOT BE FIXING IT
 
 # raccoon crypto clipper written in python
 
