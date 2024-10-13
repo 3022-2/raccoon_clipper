@@ -6,7 +6,7 @@
 ## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron, bitcoin cash**
 
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen)
-![Maintenance](https://img.shields.io/maintenance/no/2025)
+![Maintenance](https://img.shields.io/maintenance/no/2024)
 ![GitHub issues](https://img.shields.io/github/issues/3022-2/raccoon_clipper)
 
 ## A GUI based builder for making custom crypto stealing malware
