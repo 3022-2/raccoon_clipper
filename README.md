@@ -1,9 +1,12 @@
+
+# AS OF 13th OCTOBER 2024 IT IS BROKEN, I WILL NOT BE FIXINH IT
+
 # raccoon crypto clipper written in python
 
 ## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron, bitcoin cash**
 
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen)
-![Maintenance](https://img.shields.io/maintenance/yes/2025)
+![Maintenance](https://img.shields.io/maintenance/no/2025)
 ![GitHub issues](https://img.shields.io/github/issues/3022-2/raccoon_clipper)
 
 ## A GUI based builder for making custom crypto stealing malware
