@@ -1,6 +1,8 @@
 
 # AS OF 13th OCTOBER 2024 IT IS BROKEN, I WILL NOT BE FIXING IT
 
+# AS OF 08/10/2025 I PLAN TO REWRITE THIS PROGRAM AND IMPROVE IT
+
 # raccoon crypto clipper written in python
 
 ## **supports bitcoin, ethereum, litecoin, monero, solana, dogecoin, ripple, tron, bitcoin cash**
@@ -92,3 +94,4 @@ WARNING: THIS IS MAKES MALWARE DESIGNED FOR STEALING CRYPTOCURRENCY. USE UNINSTA
 
 # contact
 discord: hyperborean__ (NOT ANYMORE, LOST ACCESS TO THE ACCOUNT)
+
